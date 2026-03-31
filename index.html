@@ -885,8 +885,8 @@ var ARTICLES={
   AU:[{t:'大堡礁 × 凱恩斯潛水攻略 2025',src:'Tourism Australia · 2025.01',tags:['大堡礁','潛水'],bg:'linear-gradient(135deg,#70B8D0,#205870)',url:'#'}],
 };
 
-function catL(c){return{attraction:'景點',restaurant:'餐廳',hotel:'住宿',shopping:'購物',activity:'體驗'}[c]||c}
-function catC(c){return{attraction:'cat-a',restaurant:'cat-r',hotel:'cat-h',shopping:'cat-s',activity:'cat-x'}[c]||''}
+function catL(c){return{attraction:'景點',restaurant:'餐廳',cafe:'咖啡廳',hotel:'住宿',shopping:'購物',activity:'體驗',transports:'交通節點',other:'其他'}[c]||c}
+function catC(c){return{attraction:'cat-a',restaurant:'cat-r',cafe:'cat-c',hotel:'cat-h',shopping:'cat-s',activity:'cat-x',transports:'cat-t',other:'cat-o'}[c]||''}
 function trL(m){return{walk:'步行',rail:'電車',bus:'巴士',air:'飛機',ferry:'渡輪',taxi:'計程車'}[m]||'交通'}
 function trCls(m){return{walk:'tr-walk',rail:'tr-rail',bus:'tr-bus',air:'tr-air',ferry:'tr-ferry',taxi:'tr-taxi'}[m]||'tr-none'}
 function fmtDate(d){return d?new Date(d).toLocaleDateString('zh-TW',{month:'short',day:'numeric'}):''}
@@ -1246,7 +1246,7 @@ function openEvModal(eid){
     :{title:'',startTime:'',endTime:'',description:'',images:[],links:[],address:'',googleMapsUrl:'',lat:null,lng:null,category:'attraction',status:'planned',tags:[]};
   document.getElementById('ev-mtit').textContent=eid?'編輯行程':'新增行程';
   document.getElementById('ev-ttl').value=EDAT.title||'';
-  var cats=[{v:'attraction',l:'🏛️ 景點'},{v:'restaurant',l:'🍜 餐廳'},{v:'hotel',l:'🏨 住宿'},{v:'shopping',l:'🛍️ 購物'},{v:'activity',l:'🎯 體驗'}];
+  var cats=[{v:'attraction',l:'🏛️ 景點'},{v:'restaurant',l:'🍜 餐廳'},{v:'cafe',l:'☕ 咖啡廳'},{v:'hotel',l:'🏨 住宿'},{v:'shopping',l:'🛍️ 購物'},{v:'activity',l:'🎯 體驗'},{v:'transport',l:'🚉 交通節點'},{v:'other',l:'📌 其他'}];
   document.getElementById('ev-cat').innerHTML=cats.map(function(c){return'<option value="'+c.v+'"'+(EDAT.category===c.v?' selected':'')+'>'+c.l+'</option>'}).join('');
   document.getElementById('ev-st').value=EDAT.startTime||'';
   document.getElementById('ev-et').value=EDAT.endTime||'';
