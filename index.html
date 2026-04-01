@@ -125,7 +125,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .dd{background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:12px;display:none;flex-direction:column;gap:9px}
 .dd.open{display:flex}
 .dsrch{background:var(--cream2);border:none;border-radius:8px;padding:8px 12px;font-size:13px;width:100%;color:var(--ink);font-family:inherit}
-/* 優化: 目的地下拉改為可滾動 */
 .dgrid-wrap{max-height:160px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .dgrid-wrap::-webkit-scrollbar{width:3px}
 .dgrid-wrap::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:2px}
@@ -134,10 +133,8 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .dopt.on{border-color:var(--brown);background:var(--amber-l)}
 .dopt-f{font-size:18px;line-height:1}
 .dopt-n{font-size:9px;color:var(--ink2);text-align:center}
-/* 封面上傳 */
 .cvrow{display:flex;gap:12px;align-items:center}
 .cvbtn{width:62px;height:62px;border-radius:var(--r);border:2px dashed var(--brown-l);background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;flex-shrink:0;overflow:hidden;transition:border-color .15s;background-size:cover;background-position:center;position:relative}
-/* 優化: 封面圖片刪除叉叉 */
 .cv-del{display:none;position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(44,31,20,.7);align-items:center;justify-content:center;cursor:pointer;font-size:10px;color:#fff;z-index:2;line-height:1}
 .cvbtn.has-img .cv-del{display:flex}
 .cvhint{font-size:12px;color:var(--ink3);line-height:1.6}
@@ -215,10 +212,8 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .link-del{color:var(--ink3);font-size:14px;cursor:pointer;flex-shrink:0}
 .link-list{display:flex;flex-direction:column;gap:8px}
 
-/* 幣別切換 — 精簡版（旅遊地 + TWD） */
-.cur-toggle{display:inline-flex;background:var(--cream2);border-radius:var(--rpill);padding:3px;gap:2px}
-.cur-t-btn{padding:5px 12px;border-radius:var(--rpill);font-size:11px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;white-space:nowrap}
-.cur-t-btn.on{background:var(--brown);color:#fff}
+/* 幣別 select 統一樣式 */
+.cur-select{background:var(--cream2);border:1px solid var(--cream3);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer;font-family:inherit;width:100%}
 
 /* TRANSPORT MODAL */
 .tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px 14px}
@@ -260,16 +255,11 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .si{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .st{flex:1;font-size:13px;color:var(--ink2)}
 .sv{font-size:12px;color:var(--ink3)}
-.tog{width:36px;height:20px;border-radius:10px;background:var(--cream3);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
-.tog.on{background:var(--teal)}
-.tok{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
-.tog.on .tok{transform:translateX(16px)}
 
 .trips-toolbar{display:flex;align-items:center;gap:8px;padding:0 20px 10px;flex-shrink:0}
 .tab-bar{display:flex;gap:2px;background:var(--cream2);border-radius:var(--r);padding:3px}
 .tab-pill{padding:5px 12px;border-radius:9px;font-size:11px;font-weight:500;cursor:pointer;color:var(--ink3);transition:all .15s;white-space:nowrap}
 .tab-pill.on{background:var(--white);color:var(--brown);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-/* 優化：篩選下拉 */
 .filter-select{background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:6px 10px;font-size:12px;color:var(--ink2);flex:1;max-width:130px;cursor:pointer}
 .tc-actions{display:flex;gap:6px;padding:0 14px 10px}
 .tc-btn{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 10px;border-radius:8px;background:var(--cream2);color:var(--ink2);cursor:pointer;transition:background .12s}
@@ -322,13 +312,12 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
           <div class="tab-pill on" data-tab="upcoming">即將出發</div>
           <div class="tab-pill" data-tab="past">已去過</div>
         </div>
-        <!-- 優化：篩選國家用 select（原生支援 scroll） -->
         <select class="filter-select" id="trips-filter"><option value="">全部國家</option></select>
       </div>
       <div class="scroll"><div id="trips-list" class="trips-wrap"></div></div>
     </div>
 
-    <!-- EDITOR（移除右上角備份按鈕） -->
+    <!-- EDITOR -->
     <div id="s-editor" class="screen">
       <div class="ebar">
         <div class="back" id="ed-back">
@@ -391,7 +380,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
         <div class="dd" id="ap-dd">
           <input class="dsrch" id="ap-dsrch" type="text" placeholder="🔍 搜尋國家…">
           <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:2px">熱門目的地</div>
-          <!-- 優化：加 dgrid-wrap 使下拉可滾動 -->
           <div class="dgrid-wrap"><div class="dgrid" id="ap-dgrid"></div></div>
         </div>
       </div>
@@ -403,7 +391,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/></svg>
               <span style="font-size:10px;color:var(--ink3)">上傳</span>
             </div>
-            <!-- 優化：封面刪除按鈕 -->
             <div class="cv-del" id="ap-cv-del" title="刪除封面">✕</div>
           </div>
           <input type="file" id="ap-cv-inp" accept="image/*" style="display:none">
@@ -450,11 +437,11 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
         </div></div>
         <div class="fg"><div class="fl">相片</div><div class="photo-strip" id="ev-photos"></div></div>
         <div class="fg"><div class="fl">心情日記</div><textarea class="fi" id="ev-journal" placeholder="記錄當下的心情…"></textarea></div>
-        <!-- 優化：記帳幣別切換 -->
         <div class="fg">
           <div style="display:flex;align-items:center;justify-content:space-between">
             <div class="fl">記帳</div>
-            <div class="cur-toggle" id="led-cur-toggle"></div>
+            <!-- ★ 改為 select，id 保留 led-cur-toggle 供 JS 掛載 -->
+            <div id="led-cur-toggle"></div>
           </div>
           <div id="ev-ledger" class="link-list"></div>
           <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center">
@@ -617,7 +604,7 @@ function getTrs(tid){return lsGet('tp:'+tid+':tr')||[]}
 function getTr(tid,fromId){return getTrs(tid).find(function(t){return t.fromId===fromId})||null}
 function upsertTr(tid,d){
   var trs=getTrs(tid),i=trs.findIndex(function(t){return t.fromId===d.fromId});
-  var tr=Object.assign({id:uid(),durationMin:null,cost:null,currency:'JPY',ticketUrl:'',note:''},d);
+  var tr=Object.assign({id:uid(),durationMin:null,cost:null,currency:'TWD',ticketUrl:'',note:''},d);
   if(i>=0)trs[i]=Object.assign({},trs[i],d);else trs.push(tr);
   lsSet('tp:'+tid+':tr',trs);return tr;
 }
@@ -669,7 +656,6 @@ var EV_CATS=[
 function catL(c){var x=EV_CATS.find(function(e){return e.v===c});return x?x.l.replace(/^\S+\s/,''):c}
 function catCls(c){var x=EV_CATS.find(function(e){return e.v===c});return x?x.cls:''}
 
-// FIX：交通選項只保留 6 種
 var MODES=[
   {id:'walk',l:'步行',cls:'walk'},{id:'rail',l:'電車',cls:'rail'},
   {id:'bus',l:'巴士',cls:'bus'},{id:'air',l:'飛機',cls:'air'},
@@ -686,22 +672,23 @@ var MICO={
 var MBGS={walk:'var(--amber-l)',rail:'var(--teal-l)',bus:'var(--sky-l)',air:'var(--rose-l)',ferry:'var(--navy-l)',taxi:'var(--grn-l)'};
 var MCLRS={walk:'var(--brown)',rail:'var(--teal)',bus:'var(--sky)',air:'var(--rose)',ferry:'var(--navy)',taxi:'var(--grn)'};
 
-// 優化：根據計畫旅遊地取得主幣別（最多顯示「旅遊地幣 + TWD」）
+// ★ 修正：取得計畫所有目的地幣別 + 固定補上 TWD，不限數量
 function getTripCurrencies(tid){
   var trip=getTrip(tid)||{};
   var dests=trip.destinations||[];
-  var curs=['TWD'];
+  var curs=[];
   dests.forEach(function(c){
     var x=COUNTRIES.find(function(k){return k.c===c});
-    if(x&&x.cur&&!curs.includes(x.cur))curs.unshift(x.cur);
+    if(x&&x.cur&&!curs.includes(x.cur))curs.push(x.cur);
   });
-  // 最多顯示 2 個：主幣 + TWD
-  return curs.slice(0,2);
+  if(!curs.includes('TWD'))curs.push('TWD');
+  return curs;
 }
+
 function getCurrency(destinations){
-  if(!destinations||!destinations.length)return'JPY';
+  if(!destinations||!destinations.length)return'TWD';
   var c=COUNTRIES.find(function(x){return x.c===destinations[0]});
-  return c?c.cur:'JPY';
+  return c?c.cur:'TWD';
 }
 
 function readFile(file){return new Promise(function(r,j){var fr=new FileReader();fr.onload=function(){r(fr.result)};fr.onerror=j;fr.readAsDataURL(file)})}
@@ -754,7 +741,6 @@ var TripTab='upcoming',TripFilter='';
 function iTrips(){
   var sel=document.getElementById('trips-filter');
   sel.innerHTML='<option value="">全部國家</option>';
-  // 優化：select 本身支援原生 scroll，列出所有國家
   COUNTRIES.forEach(function(c){sel.innerHTML+='<option value="'+c.c+'">'+c.f+' '+c.n+'</option>'});
   sel.value=TripFilter;
   sel.onchange=function(){TripFilter=sel.value;renderTrips()};
@@ -829,7 +815,6 @@ function tripCardHTML(t){
 function exportTripPNG(tid){
   var trip=getTrip(tid);if(!trip)return;
   var days=getDays(tid);var evs=getEvs(tid);
-  // 顯示 loading
   var loader=document.createElement('div');
   loader.className='export-loading';
   loader.innerHTML='<div class="spinner"></div><div>正在產生計畫圖片…</div>';
@@ -838,7 +823,6 @@ function exportTripPNG(tid){
     try{
       var CW=375,PAD=20,FONT="'DM Sans',sans-serif";
       var dests=(trip.destinations||[]).map(function(c){var x=COUNTRIES.find(function(k){return k.c===c});return x?x.f+' '+x.n:c}).join('  ');
-      // 計算高度
       var headerH=140,footerH=48,dayH=32,evH=56,trH=28,gap=6;
       var totalH=headerH;
       days.forEach(function(d){
@@ -855,31 +839,21 @@ function exportTripPNG(tid){
       var ctx=canvas.getContext('2d');
       ctx.scale(ratio,ratio);
 
-      // Background
       ctx.fillStyle='#F7F3EE';ctx.fillRect(0,0,CW,totalH);
-
-      // Header bg gradient
       var grad=ctx.createLinearGradient(0,0,CW,headerH);
       grad.addColorStop(0,'#8B6F52');grad.addColorStop(1,'#C4A882');
       ctx.fillStyle=grad;
       roundRect(ctx,0,0,CW,headerH,0);ctx.fill();
 
-      // 封面圖
       function drawHeader(){
-        // Overlay
         ctx.fillStyle='rgba(44,31,20,0.45)';roundRect(ctx,0,0,CW,headerH,0);ctx.fill();
-        // Logo
         ctx.font='bold 13px '+FONT;ctx.fillStyle='rgba(255,255,255,.6)';ctx.fillText('✈ Journi 旅你',PAD,28);
-        // 計畫名稱
         ctx.font="bold 26px 'DM Serif Display',serif";ctx.fillStyle='#fff';
         ctx.fillText(trip.name,PAD,66);
-        // 目的地
         ctx.font='14px '+FONT;ctx.fillStyle='rgba(255,255,255,.85)';
         ctx.fillText(dests,PAD,90);
-        // 日期
         ctx.font='12px '+FONT;ctx.fillStyle='rgba(255,255,255,.7)';
         ctx.fillText(fmtDate(trip.startDate)+' – '+fmtDate(trip.endDate)+'  ·  '+days.length+'天',PAD,112);
-        // 進度條
         var evCount=evs.length;
         ctx.fillStyle='rgba(255,255,255,.3)';roundRect(ctx,PAD,124,CW-PAD*2,4,2);ctx.fill();
         var pct=days.length>0?(new Set(evs.map(function(e){return e.dayId})).size/days.length):0;
@@ -906,29 +880,21 @@ function exportTripPNG(tid){
         var y=headerH+PAD;
         var CAT_CLR={attraction:'#C8813A',restaurant:'#C47070',hotel:'#4A8C7A',shopping:'#9070C0',activity:'#3B6D11',transport:'#5080B8',cafe:'#A06830',other:'#9E8270'};
         days.forEach(function(d){
-          // Day header
           ctx.fillStyle='#8B6F52';ctx.font='bold 11px '+FONT;
           ctx.fillText('Day '+d.n+'  '+parseLocalDate(d.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}),PAD,y+16);
           y+=dayH+gap;
           var de=evs.filter(function(e){return e.dayId===d.id}).sort(function(a,b){return(a.startTime||'').localeCompare(b.startTime||'')});
           de.forEach(function(ev,i){
-            // Event card
             ctx.fillStyle='#fff';roundRect(ctx,PAD,y,CW-PAD*2,evH,8);ctx.fill();
             ctx.strokeStyle='#E5DDD2';ctx.lineWidth=1;roundRect(ctx,PAD,y,CW-PAD*2,evH,8);ctx.stroke();
-            // 左側色條
             ctx.fillStyle=CAT_CLR[ev.category]||'#C4A882';roundRect(ctx,PAD,y,4,evH,2);ctx.fill();
-            // 標題
             ctx.font='bold 13px '+FONT;ctx.fillStyle='#2C1F14';
             var ttl=(ev.title||'未命名行程').slice(0,20);
             ctx.fillText(ttl,PAD+14,y+22);
-            // 時間
             if(ev.startTime){ctx.font='11px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('🕐 '+ev.startTime+(ev.endTime?' – '+ev.endTime:''),PAD+14,y+40)}
-            // 地址
             if(ev.address){ctx.font='10px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('📍 '+ev.address.slice(0,22),PAD+14+(ev.startTime?100:0),y+40)}
-            // 心情
             if(ev.mood){ctx.font='16px '+FONT;ctx.fillText(ev.mood,CW-PAD-22,y+28)}
             y+=evH+gap;
-            // Transport
             if(i<de.length-1){
               var trs=getTrs(tid);var tr=trs.find(function(t){return t.fromId===ev.id});
               if(tr&&tr.mode){
@@ -946,7 +912,6 @@ function exportTripPNG(tid){
           });
           if(!de.length){ctx.font='11px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('（尚無行程）',PAD,y+12);y+=24+gap}
         });
-        // Footer
         ctx.fillStyle='#8B6F52';ctx.font='10px '+FONT;ctx.fillStyle='#9E8270';
         ctx.fillText('由 Journi 旅你 產生  ·  journi.app',PAD,totalH-16);
       }
@@ -990,7 +955,6 @@ function iAP(editTid){
   };
   var cvbtn=document.getElementById('ap-cvbtn');
   cvbtn.onclick=function(e){if(e.target.closest('.cv-del'))return;document.getElementById('ap-cv-inp').click()};
-  // 優化：封面刪除按鈕
   document.getElementById('ap-cv-del').onclick=function(e){e.stopPropagation();ACOV=null;updateCvBtn()};
   document.getElementById('ap-cls-btn').onclick=function(){closeM('m-add')};
   document.getElementById('m-add').onclick=null;
@@ -1184,7 +1148,6 @@ function bindEvDragAndTouch(){
         if(si!==-1&&di!==-1){ids.splice(si,1);ids.splice(di,0,srcId);reorderEvs(ET,EDay,ids);rTL();}
       }
     });
-    // Touch
     var tSrc=null,ghost=null,lastTgt=null;
     handle.addEventListener('touchstart',function(e){
       tSrc=eid;var touch=e.touches[0];
@@ -1215,14 +1178,15 @@ function bindEvDragAndTouch(){
 }
 
 // ════ EVENT MODAL ══════════════════════════════════════════════
-var EDAT={},EID=null,LedCur='JPY';
+var EDAT={},EID=null,LedCur='TWD';
 function openEvModal(eid,defaultStart){
   EID=eid;
   EDAT=eid?Object.assign({},getEvs(ET).find(function(e){return e.id===eid}))
     :{title:'',startTime:defaultStart||'',endTime:'',description:'',images:[],links:[],address:'',googleMapsUrl:'',lat:null,lng:null,category:'attraction',status:'planned',tags:[],mood:'',journal:'',ledger:[]};
-  // 優化：記帳幣別預設為旅遊地幣
+  // ★ 預設幣別：取計畫第一個目的地幣，回退至 TWD
   var curs=getTripCurrencies(ET);
-  LedCur=EDAT.ledgerCurrency||curs[0]||'JPY';
+  LedCur=EDAT.ledgerCurrency||(curs[0]||'TWD');
+  if(!curs.includes(LedCur))LedCur=curs[0]||'TWD';
   document.getElementById('ev-mtit').textContent=eid?'編輯行程':'新增行程';
   document.getElementById('ev-ttl').value=EDAT.title||'';
   document.getElementById('ev-cat').innerHTML=EV_CATS.map(function(c){return'<option value="'+c.v+'"'+(EDAT.category===c.v?' selected':'')+'>'+c.l+'</option>'}).join('');
@@ -1253,15 +1217,18 @@ function openEvModal(eid,defaultStart){
   document.getElementById('m-ev').onclick=null;
   openM('m-ev');
 }
-// 優化：記帳幣別切換（旅遊地幣 + TWD）
+
+// ★ 修正：rLedCurToggle 改用 <select>，支援任意數量幣別
 function rLedCurToggle(){
-  var toggle=document.getElementById('led-cur-toggle');
+  var wrap=document.getElementById('led-cur-toggle');
   var curs=getTripCurrencies(ET);
-  toggle.innerHTML=curs.map(function(c){return'<div class="cur-t-btn'+(c===LedCur?' on':'')+'" data-c="'+c+'">'+c+'</div>'}).join('');
-  toggle.querySelectorAll('.cur-t-btn').forEach(function(el){
-    el.onclick=function(){LedCur=el.dataset.c;rLedCurToggle();rEvLedger()};
-  });
+  if(!curs.includes(LedCur))LedCur=curs[0]||'TWD';
+  wrap.innerHTML='<select id="led-cur-sel" class="cur-select" style="width:auto;padding:4px 8px;font-size:11px">'
+    +curs.map(function(c){return'<option value="'+c+'"'+(c===LedCur?' selected':'')+'>'+c+'</option>'}).join('')
+    +'</select>';
+  document.getElementById('led-cur-sel').onchange=function(){LedCur=this.value;rEvLedger()};
 }
+
 var _photoPending=0;
 function rEvPhotos(){
   var strip=document.getElementById('ev-photos');if(!strip)return;
@@ -1333,9 +1300,11 @@ var TFrom=null,TMode=null,TData={};
 function openTrModal(fromId){
   TFrom=fromId;
   var ex=getTr(ET,fromId);
-  // 優化：交通幣別預設旅遊地
-  var curs=getTripCurrencies(ET);var defCur=curs[0]||'JPY';
+  var curs=getTripCurrencies(ET);
+  var defCur=curs[0]||'TWD';
   TData=ex?Object.assign({},ex):{fromId:fromId,mode:null,durationMin:'',cost:'',currency:defCur,ticketUrl:'',note:''};
+  // 確保儲存的幣別仍在清單內，否則重置
+  if(!curs.includes(TData.currency))TData.currency=defCur;
   TMode=TData.mode||null;
   var evs=getEvs(ET),fe=evs.find(function(e){return e.id===fromId});
   var dl=getEvsByDay(ET,fe?fe.dayId:EDay);
@@ -1361,10 +1330,11 @@ function rTMGrid(){
 function rTDet(){
   var box=document.getElementById('tr-det');if(!TMode){box.innerHTML='';return}
   var m=MODES.find(function(x){return x.id===TMode});
-  // 優化：幣別只顯示 旅遊地幣 + TWD 切換
-  var curs=getTripCurrencies(ET);var cur=TData.currency||curs[0]||'JPY';
-  // 確保 cur 在清單內
-  if(!curs.includes(cur))cur=curs[0]||'JPY';
+  var curs=getTripCurrencies(ET);
+  var cur=TData.currency||(curs[0]||'TWD');
+  if(!curs.includes(cur))cur=curs[0]||'TWD';
+
+  // ★ 修正：幣別改用 <select>，支援任意數量目的地
   box.innerHTML='<div class="tr-det '+TMode+'">'
     +'<div class="tr-dtit" style="color:'+MCLRS[TMode]+'">'+m.l+' 詳細資訊</div>'
     +'<div class="tr-fields">'
@@ -1372,16 +1342,16 @@ function rTDet(){
     +'<div class="tr-f"><div class="tr-fl">費用</div><input class="tr-fi" id="tr-cost" type="number" min="0" placeholder="例：230" value="'+(TData.cost||'')+'"></div>'
     +'</div>'
     +'<div class="tr-f" style="margin-top:10px"><div class="tr-fl" style="margin-bottom:6px">幣別</div>'
-    // 優化：精簡幣別切換（旅遊地 + TWD）
-    +'<div class="cur-toggle" id="tr-cur-toggle">'
-    +curs.map(function(c){return'<div class="cur-t-btn'+(c===cur?' on':'')+'" data-c="'+c+'">'+c+'</div>'}).join('')
-    +'</div></div>'
+    +'<select id="tr-cur-sel" class="tr-fi" style="cursor:pointer">'
+    +curs.map(function(c){return'<option value="'+c+'"'+(c===cur?' selected':'')+'>'+c+'</option>'}).join('')
+    +'</select></div>'
     +'<div class="tr-f" style="margin-top:8px"><div class="tr-fl">票務連結</div><input class="tr-fi" id="tr-ticket" type="url" placeholder="https://…" value="'+(TData.ticketUrl||'')+'"></div>'
     +'<div class="tr-f" style="margin-top:8px"><div class="tr-fl">備忘</div><input class="tr-fi" id="tr-note" type="text" placeholder="例：乘 JR 山手線" value="'+(TData.note||'')+'"></div>'
     +'<div class="tr-ml" id="tr-maps">🗺 Google Maps 查看路線</div></div>';
-  box.querySelectorAll('.cur-t-btn').forEach(function(el){
-    el.onclick=function(){TData.currency=el.dataset.c;box.querySelectorAll('.cur-t-btn').forEach(function(x){x.classList.toggle('on',x.dataset.c===TData.currency)})};
-  });
+
+  // ★ 修正：直接用 onchange 讀取，不再依賴 .cur-t-btn.on
+  document.getElementById('tr-cur-sel').onchange=function(){TData.currency=this.value};
+
   document.getElementById('tr-maps').onclick=function(){
     var evs=getEvs(ET),fe=evs.find(function(e){return e.id===TFrom});
     var dl=getEvsByDay(ET,fe?fe.dayId:EDay);
@@ -1393,9 +1363,10 @@ function rTDet(){
 }
 function saveTr(){
   if(!TMode){toast('請選擇交通方式');return}
-  var curSel=document.querySelector('#tr-cur-toggle .cur-t-btn.on');
-  if(curSel)TData.currency=curSel.dataset.c;
-  TData.currency=TData.currency||'JPY';
+  // ★ 修正：從 <select> 讀取幣別
+  var trCurSel=document.getElementById('tr-cur-sel');
+  if(trCurSel)TData.currency=trCurSel.value;
+  if(!TData.currency)TData.currency='TWD';
   var evs=getEvs(ET),fe=evs.find(function(e){return e.id===TFrom});
   var dl=fe?getEvsByDay(ET,fe.dayId):[];
   var fi=dl.findIndex(function(e){return e.id===TFrom});var toId=dl[fi+1]?dl[fi+1].id:null;
