@@ -47,7 +47,6 @@ a{color:inherit;text-decoration:none}
 .ni.on svg,.ni.on .ni-l{color:var(--brown)}
 .ni.on .ni-l{font-weight:500}
 
-.serif{font-family:'DM Serif Display',serif}
 .ph{padding:16px 20px 10px;flex-shrink:0}
 .ph-t{font-family:'DM Serif Display',serif;font-size:26px;color:var(--ink);line-height:1.2}
 .ph-s{font-size:13px;color:var(--ink3);margin-top:3px}
@@ -83,7 +82,7 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .ctag{padding:6px 14px;border-radius:var(--rpill);font-size:12px;font-weight:500;white-space:nowrap;border:1px solid var(--cream3);background:var(--white);color:var(--ink3);cursor:pointer;transition:all .15s;flex-shrink:0}
 .ctag.on{background:var(--brown);color:#fff;border-color:var(--brown)}
 .rec-list{padding:0 20px 24px;display:flex;flex-direction:column;gap:12px}
-.rc{background:var(--white);border-radius:var(--rl);border:1px solid var(--cream3);overflow:hidden;display:flex;cursor:pointer;transition:opacity .15s}
+.rc{background:var(--white);border-radius:16px;border:1px solid var(--cream3);overflow:hidden;display:flex;cursor:pointer;transition:opacity .15s}
 .rc:active{opacity:.8}
 .rc-img{width:92px;flex-shrink:0;min-height:98px;background-size:cover;background-position:center}
 .rc-body{padding:12px 13px;flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
@@ -96,7 +95,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .trips-wrap{padding:10px 20px 24px;display:flex;flex-direction:column;gap:14px}
 .tc{border-radius:20px;border:1px solid var(--cream3);overflow:hidden;background:var(--white);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s;position:relative}
 .tc:active{opacity:.88}
-/* FIX: tc-cover 不裁切 past-badge */
 .tc-cover{height:112px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--cream3);position:relative;overflow:hidden}
 .tc-img{background-size:cover;background-position:center}
 .tc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,31,20,.58),transparent 56%)}
@@ -111,8 +109,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .empty-ico{font-size:52px;margin-bottom:14px}
 .empty-t{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink2);margin-bottom:8px}
 .empty-s{font-size:14px;color:var(--ink3);line-height:1.6}
-
-/* 已完成 badge：只在 tc-cover 外部右上角顯示一次 */
 .past-badge-outer{position:absolute;top:10px;right:10px;z-index:10;background:rgba(44,31,20,.65);color:#fff;font-size:9px;font-weight:500;padding:3px 8px;border-radius:var(--rpill);pointer-events:none}
 
 /* ADD PLAN */
@@ -129,13 +125,21 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .dd{background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:12px;display:none;flex-direction:column;gap:9px}
 .dd.open{display:flex}
 .dsrch{background:var(--cream2);border:none;border-radius:8px;padding:8px 12px;font-size:13px;width:100%;color:var(--ink);font-family:inherit}
+/* 優化: 目的地下拉改為可滾動 */
+.dgrid-wrap{max-height:160px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.dgrid-wrap::-webkit-scrollbar{width:3px}
+.dgrid-wrap::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:2px}
 .dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 .dopt{border-radius:8px;padding:8px 4px 6px;border:1.5px solid var(--cream3);background:var(--cream);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .15s}
 .dopt.on{border-color:var(--brown);background:var(--amber-l)}
 .dopt-f{font-size:18px;line-height:1}
 .dopt-n{font-size:9px;color:var(--ink2);text-align:center}
+/* 封面上傳 */
 .cvrow{display:flex;gap:12px;align-items:center}
 .cvbtn{width:62px;height:62px;border-radius:var(--r);border:2px dashed var(--brown-l);background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;flex-shrink:0;overflow:hidden;transition:border-color .15s;background-size:cover;background-position:center;position:relative}
+/* 優化: 封面圖片刪除叉叉 */
+.cv-del{display:none;position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(44,31,20,.7);align-items:center;justify-content:center;cursor:pointer;font-size:10px;color:#fff;z-index:2;line-height:1}
+.cvbtn.has-img .cv-del{display:flex}
 .cvhint{font-size:12px;color:var(--ink3);line-height:1.6}
 
 /* EDITOR */
@@ -168,7 +172,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .ev-acts{display:flex;gap:6px;padding:6px 11px;border-top:1px solid var(--cream3);flex-wrap:wrap}
 .ev-btn{font-size:10px;padding:4px 9px;border-radius:6px;background:var(--cream2);color:var(--ink2);cursor:pointer;transition:background .12s}
 .ev-btn:active{background:var(--cream3)}
-/* 拖曳把手 */
 .ev-drag{display:flex;flex-direction:column;gap:3px;padding:8px 11px;border-top:1px solid var(--cream3);align-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 .ev-drag:active{cursor:grabbing}
 .db{width:24px;height:2px;background:var(--cream4);border-radius:1px}
@@ -187,9 +190,7 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .add-ev{display:flex;justify-content:center;padding:8px 0 4px}
 .add-ev-btn{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1.5px dashed var(--brown-l);border-radius:var(--r);padding:8px 16px;font-size:12px;color:var(--brown);font-weight:500;cursor:pointer;transition:background .12s}
 .add-ev-btn:active{background:var(--amber-l)}
-.cat-a{color:var(--amber)}.cat-r{color:var(--rose)}.cat-h{color:var(--teal)}.cat-s{color:#9070C0}.cat-x{color:var(--grn)}
-/* 新增類別 */
-.cat-t{color:var(--sky)}.cat-c{color:#A06830}.cat-o{color:var(--ink3)}
+.cat-a{color:var(--amber)}.cat-r{color:var(--rose)}.cat-h{color:var(--teal)}.cat-s{color:#9070C0}.cat-x{color:var(--grn)}.cat-t{color:var(--sky)}.cat-c{color:#A06830}.cat-o{color:var(--ink3)}
 .conflict{background:#FFF3E0;border:1px solid #FFB74D;border-radius:8px;padding:6px 10px;font-size:11px;color:#E65100;margin-bottom:6px}
 
 /* EVENT MODAL */
@@ -209,11 +210,15 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .photo-th{width:72px;height:72px;border-radius:var(--r);background-size:cover;background-position:center;flex-shrink:0;position:relative}
 .photo-del{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(44,31,20,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px;color:#fff}
 .photo-add{width:72px;height:72px;border-radius:var(--r);border:2px dashed var(--brown-l);background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;flex-shrink:0;font-size:10px;color:var(--ink3)}
-.minimap{border-radius:var(--r);height:100px;background:linear-gradient(160deg,#C8D8B0,#A0B890);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;overflow:hidden}
 .link-item{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:9px 12px;min-width:0}
 .link-url{flex:1;font-size:12px;color:var(--teal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .link-del{color:var(--ink3);font-size:14px;cursor:pointer;flex-shrink:0}
 .link-list{display:flex;flex-direction:column;gap:8px}
+
+/* 幣別切換 — 精簡版（旅遊地 + TWD） */
+.cur-toggle{display:inline-flex;background:var(--cream2);border-radius:var(--rpill);padding:3px;gap:2px}
+.cur-t-btn{padding:5px 12px;border-radius:var(--rpill);font-size:11px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.cur-t-btn.on{background:var(--brown);color:#fff}
 
 /* TRANSPORT MODAL */
 .tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px 14px}
@@ -240,9 +245,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .tr-fl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3)}
 .tr-fi{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--ink);width:100%;font-family:inherit}
 .tr-ml{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.6);border-radius:8px;font-size:12px;color:var(--teal);font-weight:500;cursor:pointer}
-.currency-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.cur-opt{padding:4px 10px;border-radius:var(--rpill);font-size:10px;font-weight:500;border:1px solid var(--cream3);background:var(--white);color:var(--ink3);cursor:pointer;transition:all .12s}
-.cur-opt.on{background:var(--brown);color:#fff;border-color:var(--brown)}
 
 /* PROFILE */
 .p-hero{padding:20px;display:flex;align-items:center;gap:14px;flex-shrink:0}
@@ -251,7 +253,7 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .p-sub{font-size:12px;color:var(--ink3)}
 .sg{padding:0 20px 16px}
 .sg-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);padding:10px 0 6px}
-.sg-grp{background:var(--white);border-radius:var(--rl);overflow:hidden}
+.sg-grp{background:var(--white);border-radius:16px;overflow:hidden}
 .sr{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--cream3);transition:background .12s}
 .sr:last-child{border-bottom:none}
 .sr:active{background:var(--cream2)}
@@ -267,13 +269,13 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .tab-bar{display:flex;gap:2px;background:var(--cream2);border-radius:var(--r);padding:3px}
 .tab-pill{padding:5px 12px;border-radius:9px;font-size:11px;font-weight:500;cursor:pointer;color:var(--ink3);transition:all .15s;white-space:nowrap}
 .tab-pill.on{background:var(--white);color:var(--brown);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.filter-select{background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:6px 10px;font-size:12px;color:var(--ink2);flex:1;max-width:130px}
+/* 優化：篩選下拉 */
+.filter-select{background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:6px 10px;font-size:12px;color:var(--ink2);flex:1;max-width:130px;cursor:pointer}
 .tc-actions{display:flex;gap:6px;padding:0 14px 10px}
 .tc-btn{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 10px;border-radius:8px;background:var(--cream2);color:var(--ink2);cursor:pointer;transition:background .12s}
 .tc-btn:active{background:var(--cream3)}
 .tc-btn-del{color:var(--rose)!important}
-.ev-del-btn{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(196,112,112,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:all .12s}
-.ev-del-btn:active{background:rgba(196,112,112,.35)}
+.ev-del-btn{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(196,112,112,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
 .dtab-del{width:15px;height:15px;border-radius:50%;background:rgba(196,112,112,.25);color:var(--rose);font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;flex-shrink:0;font-weight:700}
 .confirm-overlay{position:fixed;inset:0;background:rgba(44,31,20,.5);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .18s;pointer-events:none}
 .confirm-overlay.show{opacity:1;pointer-events:all}
@@ -281,19 +283,22 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
 .confirm-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:8px}
 .confirm-msg{font-size:13px;color:var(--ink3);margin-bottom:20px;line-height:1.6}
 .confirm-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tr-drag{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;cursor:grab;color:var(--ink3);opacity:.5;font-size:13px;flex-shrink:0;touch-action:none}
-.tr-container{transition:border-top .1s}
+.gmap-frame{width:100%;height:140px;border-radius:var(--r);overflow:hidden;background:var(--cream3);position:relative}
+.gmap-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);height:140px;justify-content:center}
+.ledger-item{display:flex;gap:8px;align-items:center;background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:8px 11px}
+.ledger-desc{flex:1;font-size:12px;color:var(--ink)}
+.ledger-amt{font-size:13px;font-weight:500;color:var(--rose)}
+.ledger-del{color:var(--ink3);font-size:14px;cursor:pointer}
 .mem-section{display:flex;flex-direction:column;gap:12px}
 .mem-mood-row{display:flex;gap:8px}
 .mood-btn{flex:1;padding:10px 4px;border-radius:var(--r);border:1.5px solid var(--cream3);background:var(--white);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .15s;font-size:18px}
 .mood-btn.on{border-color:var(--brown);background:var(--amber-l)}
 .mood-lbl{font-size:9px;color:var(--ink3)}
-.ledger-item{display:flex;gap:8px;align-items:center;background:var(--white);border:1px solid var(--cream3);border-radius:var(--r);padding:8px 11px}
-.ledger-desc{flex:1;font-size:12px;color:var(--ink)}
-.ledger-amt{font-size:13px;font-weight:500;color:var(--rose)}
-.ledger-del{color:var(--ink3);font-size:14px;cursor:pointer}
-.gmap-frame{width:100%;height:140px;border-radius:var(--r);overflow:hidden;background:var(--cream3);position:relative}
-.gmap-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);height:140px;justify-content:center}
+
+/* PNG 匯出 loading */
+.export-loading{position:fixed;inset:0;background:rgba(44,31,20,.5);z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:14px}
+.spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -302,9 +307,7 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
     <!-- RECOMMEND -->
     <div id="s-rec" class="screen">
       <div class="ph">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:2px">
-          <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink)">✈️ Journi 旅你</div>
-        </div>
+        <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:2px">✈️ Journi 旅你</div>
         <div class="ph-s">探索旅遊靈感</div>
       </div>
       <div id="cbar" class="cbar"></div>
@@ -319,18 +322,17 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
           <div class="tab-pill on" data-tab="upcoming">即將出發</div>
           <div class="tab-pill" data-tab="past">已去過</div>
         </div>
+        <!-- 優化：篩選國家用 select（原生支援 scroll） -->
         <select class="filter-select" id="trips-filter"><option value="">全部國家</option></select>
       </div>
       <div class="scroll"><div id="trips-list" class="trips-wrap"></div></div>
     </div>
 
-    <!-- EDITOR -->
+    <!-- EDITOR（移除右上角備份按鈕） -->
     <div id="s-editor" class="screen">
       <div class="ebar">
-        <div class="back" id="ed-back"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3.5L5.5 9l5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>我的計畫</div>
-        <div style="display:flex;gap:5px;margin-left:auto;flex-shrink:0">
-          <button class="btn-g" id="btn-ics" style="padding:5px 9px" title="匯出行事曆">📅</button>
-          <button class="btn-g" id="btn-json" style="padding:5px 9px" title="備份JSON">⬇</button>
+        <div class="back" id="ed-back">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3.5L5.5 9l5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>我的計畫
         </div>
       </div>
       <div id="ed-name" class="ename"></div>
@@ -348,16 +350,15 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
           <div class="sg-grp">
             <div class="sr" id="p-pref-c"><div class="si" style="background:var(--amber-l)">⭐</div><span class="st">感興趣的國家</span><span class="sv">→</span></div>
             <div class="sr" id="p-pref-s"><div class="si" style="background:var(--teal-l)">🕐</div><span class="st">旅遊風格偏好</span><span class="sv">→</span></div>
-            <div class="sr" id="p-pref-b"><div class="si" style="background:var(--rose-l)">📍</div><span class="st">追蹤的部落格</span><span class="sv">→</span></div>
           </div>
-          <div class="sg-lbl">匯出 / 備份</div>
+          <div class="sg-lbl">備份 / 匯入</div>
           <div class="sg-grp">
             <div class="sr" id="p-export-all"><div class="si" style="background:var(--grn-l)">⬇</div><span class="st">匯出所有計畫 JSON</span><span class="sv">→</span></div>
             <div class="sr" id="p-import"><div class="si" style="background:var(--sky-l)">⬆</div><span class="st">匯入計畫 JSON</span><span class="sv">→</span></div>
           </div>
           <div class="sg-lbl">關於</div>
           <div class="sg-grp">
-            <div class="sr" style="cursor:default"><span class="st">Journi 旅你 v1.1</span><span class="sv">旅遊規劃 PWA</span></div>
+            <div class="sr" style="cursor:default"><span class="st">Journi 旅你 v1.2</span><span class="sv">旅遊規劃 PWA</span></div>
           </div>
           <div style="height:20px"></div>
         </div>
@@ -384,14 +385,26 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
         <div class="dbox"><div class="dbox-l">出發</div><input type="date" id="ap-s"></div>
         <div class="dbox"><div class="dbox-l">回程</div><input type="date" id="ap-e"></div>
       </div></div>
-      <div class="fg"><div class="fl">目的地（可複選）</div><div class="dc" id="ap-dc"></div><div class="dd" id="ap-dd"><input class="dsrch" id="ap-dsrch" type="text" placeholder="🔍 搜尋國家…"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:2px">熱門目的地</div><div class="dgrid" id="ap-dgrid"></div></div></div>
-      <div class="fg"><div class="fl">封面圖片</div>
+      <div class="fg">
+        <div class="fl">目的地（可複選）</div>
+        <div class="dc" id="ap-dc"></div>
+        <div class="dd" id="ap-dd">
+          <input class="dsrch" id="ap-dsrch" type="text" placeholder="🔍 搜尋國家…">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:2px">熱門目的地</div>
+          <!-- 優化：加 dgrid-wrap 使下拉可滾動 -->
+          <div class="dgrid-wrap"><div class="dgrid" id="ap-dgrid"></div></div>
+        </div>
+      </div>
+      <div class="fg">
+        <div class="fl">封面圖片</div>
         <div class="cvrow">
           <div class="cvbtn" id="ap-cvbtn">
             <div id="ap-cv-inner" style="display:flex;flex-direction:column;align-items:center;gap:4px">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/></svg>
               <span style="font-size:10px;color:var(--ink3)">上傳</span>
             </div>
+            <!-- 優化：封面刪除按鈕 -->
+            <div class="cv-del" id="ap-cv-del" title="刪除封面">✕</div>
           </div>
           <input type="file" id="ap-cv-inp" accept="image/*" style="display:none">
           <div class="cvhint">上傳自訂封面，或建立後自動從行程圖片擷取。</div>
@@ -418,16 +431,14 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
       <div class="ev-tab" data-p="links">連結</div>
       <div class="ev-tab" data-p="map">地圖</div>
     </div>
-    <!-- INFO TAB -->
     <div class="ev-panel" id="ep-info">
       <div class="fg"><div class="fl">時間</div><div class="trow">
         <div class="tbox"><div class="tbox-l">開始</div><input type="time" id="ev-st"></div>
         <div class="tbox"><div class="tbox-l">結束</div><input type="time" id="ev-et"></div>
       </div></div>
       <div class="fg"><div class="fl">地址</div><div class="arow"><input class="fi" id="ev-addr" type="text" placeholder="輸入地址或景點名稱…" style="flex:1"><div class="map-btn" id="ev-mapbtn">地圖 ↗</div></div></div>
-      <div class="fg"><div class="fl">備忘 / 行程內容</div><textarea class="fi" id="ev-desc" placeholder="記錄行程細節、注意事項…"></textarea></div>
+      <div class="fg"><div class="fl">備忘</div><textarea class="fi" id="ev-desc" placeholder="記錄行程細節、注意事項…"></textarea></div>
     </div>
-    <!-- MEMORY TAB -->
     <div class="ev-panel hide" id="ep-memory">
       <div class="mem-section">
         <div class="fg"><div class="fl">心情</div><div class="mem-mood-row">
@@ -438,8 +449,13 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
           <div class="mood-btn" data-mood="🤩"><span>🤩</span><span class="mood-lbl">驚豔</span></div>
         </div></div>
         <div class="fg"><div class="fl">相片</div><div class="photo-strip" id="ev-photos"></div></div>
-        <div class="fg"><div class="fl">心情日記</div><textarea class="fi" id="ev-journal" placeholder="記錄當下的心情、特別的感受…"></textarea></div>
-        <div class="fg"><div class="fl">記帳</div>
+        <div class="fg"><div class="fl">心情日記</div><textarea class="fi" id="ev-journal" placeholder="記錄當下的心情…"></textarea></div>
+        <!-- 優化：記帳幣別切換 -->
+        <div class="fg">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="fl">記帳</div>
+            <div class="cur-toggle" id="led-cur-toggle"></div>
+          </div>
           <div id="ev-ledger" class="link-list"></div>
           <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center">
             <input class="fi" id="ev-led-desc" type="text" placeholder="消費項目…" style="font-size:13px">
@@ -449,7 +465,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
         </div>
       </div>
     </div>
-    <!-- LINKS TAB：FIX 移除重複標題，只保留一個 section -->
     <div class="ev-panel hide" id="ep-links" style="gap:10px">
       <div class="fg">
         <div class="fl">外部連結</div>
@@ -461,7 +476,6 @@ textarea.fi{resize:vertical;min-height:82px;line-height:1.6}
         <button class="btn-g" id="ev-ladd" style="align-self:flex-start">＋ 新增連結</button>
       </div>
     </div>
-    <!-- MAP TAB -->
     <div class="ev-panel hide" id="ep-map">
       <div class="fl" style="margin-bottom:8px">位置地圖</div>
       <div class="gmap-frame" id="ev-gmap"></div>
@@ -526,61 +540,32 @@ function addIdx(s){var a=getIndex();a.unshift(s);saveIndex(a)}
 function updIdx(id,p){saveIndex(getIndex().map(function(t){return t.id===id?Object.assign({},t,p):t}))}
 function delIdx(id){saveIndex(getIndex().filter(function(t){return t.id!==id}))}
 
+function parseLocalDate(str){if(!str)return new Date();var p=str.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function toDateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmtDate(d){if(!d)return'';return parseLocalDate(d).toLocaleDateString('zh-TW',{month:'short',day:'numeric'})}
+function isPast(trip){if(!trip.endDate)return false;var f=parseLocalDate(trip.endDate);f.setDate(f.getDate()+1);return f<new Date()}
+
 function getTrip(id){return lsGet('tp:'+id)}
 function createTrip(d){
-  var id=uid();
-  var days=buildDays(id,d.startDate,d.endDate);
-  var trip={id:id,name:d.name,startDate:d.startDate,endDate:d.endDate,
-    destinations:d.destinations||[],coverImage:d.coverImage||null,
-    createdAt:now(),updatedAt:now()};
-  lsSet('tp:'+id,trip);lsSet('tp:'+id+':days',days);
-  lsSet('tp:'+id+':ev',[]);lsSet('tp:'+id+':tr',[]);
-  addIdx({id:id,name:trip.name,startDate:trip.startDate,endDate:trip.endDate,
-    destinations:trip.destinations,coverImage:trip.coverImage,dayCount:days.length,evCount:0});
+  var id=uid(),days=buildDays(id,d.startDate,d.endDate);
+  var trip={id:id,name:d.name,startDate:d.startDate,endDate:d.endDate,destinations:d.destinations||[],coverImage:d.coverImage||null,createdAt:now(),updatedAt:now()};
+  lsSet('tp:'+id,trip);lsSet('tp:'+id+':days',days);lsSet('tp:'+id+':ev',[]);lsSet('tp:'+id+':tr',[]);
+  addIdx({id:id,name:trip.name,startDate:trip.startDate,endDate:trip.endDate,destinations:trip.destinations,coverImage:trip.coverImage,dayCount:days.length,evCount:0});
   return trip;
 }
 function buildDays(tid,start,end){
-  var days=[],i=1;
-  // FIX: 使用字串解析避免時區問題
-  var cur=parseLocalDate(start),fin=parseLocalDate(end);
-  while(cur<=fin){
-    days.push({id:uid(),tripId:tid,date:toDateStr(cur),n:i++,note:''});
-    cur.setDate(cur.getDate()+1);
-  }
+  var days=[],i=1,cur=parseLocalDate(start),fin=parseLocalDate(end);
+  while(cur<=fin){days.push({id:uid(),tripId:tid,date:toDateStr(cur),n:i++,note:''});cur.setDate(cur.getDate()+1)}
   return days;
 }
-// FIX: 解析本地日期字串（避免 UTC 偏移造成 Invalid Date / 跨日問題）
-function parseLocalDate(str){
-  if(!str)return new Date();
-  var p=str.split('-');
-  return new Date(+p[0],+p[1]-1,+p[2]);
-}
-function toDateStr(d){
-  var y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
-  return y+'-'+m+'-'+day;
-}
-function fmtDate(d){
-  if(!d)return'';
-  var dt=parseLocalDate(d);
-  return dt.toLocaleDateString('zh-TW',{month:'short',day:'numeric'});
-}
-function isPast(trip){
-  if(!trip.endDate)return false;
-  var fin=parseLocalDate(trip.endDate);
-  fin.setDate(fin.getDate()+1);// 包含最後一天
-  return fin<new Date();
-}
-
 function updateTrip(id,p){
   var t=Object.assign({},getTrip(id),p,{updatedAt:now()});
-  lsSet('tp:'+id,t);
-  updIdx(id,{name:t.name,startDate:t.startDate,endDate:t.endDate,destinations:t.destinations,coverImage:t.coverImage});
+  lsSet('tp:'+id,t);updIdx(id,{name:t.name,startDate:t.startDate,endDate:t.endDate,destinations:t.destinations,coverImage:t.coverImage});
   return t;
 }
 function deleteTrip(id){lsDel('tp:'+id);lsDel('tp:'+id+':days');lsDel('tp:'+id+':ev');lsDel('tp:'+id+':tr');delIdx(id)}
 function getDays(tid){return lsGet('tp:'+tid+':days')||[]}
 function saveDays(tid,days){lsSet('tp:'+tid+':days',days)}
-
 function getEvs(tid){return lsGet('tp:'+tid+':ev')||[]}
 function getEvsByDay(tid,did){
   return getEvs(tid).filter(function(e){return e.dayId===did}).sort(function(a,b){
@@ -590,13 +575,8 @@ function getEvsByDay(tid,did){
 }
 function createEv(tid,did,data){
   var evs=getEvs(tid),de=evs.filter(function(e){return e.dayId===did});
-  var ev=Object.assign({id:uid(),tripId:tid,dayId:did,createdAt:now(),
-    title:'',startTime:'',endTime:'',description:'',images:[],links:[],
-    address:'',googleMapsUrl:'',lat:null,lng:null,
-    category:'attraction',status:'planned',tags:[],sortOrder:de.length,
-    mood:'',journal:'',ledger:[]},data);
-  evs.push(ev);lsSet('tp:'+tid+':ev',evs);
-  syncCover(tid,ev);refreshCount(tid,evs);return ev;
+  var ev=Object.assign({id:uid(),tripId:tid,dayId:did,createdAt:now(),title:'',startTime:'',endTime:'',description:'',images:[],links:[],address:'',googleMapsUrl:'',lat:null,lng:null,category:'attraction',status:'planned',tags:[],sortOrder:de.length,mood:'',journal:'',ledger:[]},data);
+  evs.push(ev);lsSet('tp:'+tid+':ev',evs);syncCover(tid,ev);refreshCount(tid,evs);return ev;
 }
 function updateEv(tid,eid,p){
   var evs=getEvs(tid).map(function(e){return e.id===eid?Object.assign({},e,p):e});
@@ -607,24 +587,17 @@ function updateEv(tid,eid,p){
 function deleteEv(tid,eid){
   var evs=getEvs(tid).filter(function(e){return e.id!==eid});
   lsSet('tp:'+tid+':ev',evs);
-  var trs=getTrs(tid).filter(function(t){return t.fromId!==eid&&t.toId!==eid});
-  lsSet('tp:'+tid+':tr',trs);refreshCount(tid,evs);
+  lsSet('tp:'+tid+':tr',getTrs(tid).filter(function(t){return t.fromId!==eid&&t.toId!==eid}));
+  refreshCount(tid,evs);
 }
 function reorderEvs(tid,did,ids){
-  var evs=getEvs(tid).map(function(e){
-    if(e.dayId!==did)return e;
-    var i=ids.indexOf(e.id);return i===-1?e:Object.assign({},e,{sortOrder:i});
-  });lsSet('tp:'+tid+':ev',evs);
+  var evs=getEvs(tid).map(function(e){if(e.dayId!==did)return e;var i=ids.indexOf(e.id);return i===-1?e:Object.assign({},e,{sortOrder:i})});
+  lsSet('tp:'+tid+':ev',evs);
 }
-function syncCover(tid,ev){
-  var t=getTrip(tid);if(!t)return;
-  if(!t.coverImage&&ev&&ev.images&&ev.images.length){updateTrip(tid,{coverImage:ev.images[0]});}
-}
+function syncCover(tid,ev){var t=getTrip(tid);if(!t)return;if(!t.coverImage&&ev&&ev.images&&ev.images.length)updateTrip(tid,{coverImage:ev.images[0]})}
 function refreshCount(tid,evs){updIdx(tid,{evCount:evs.length})}
 function checkConflict(tid,did,st,et,excId){
-  return getEvsByDay(tid,did).filter(function(e){
-    return e.id!==excId&&e.startTime&&e.endTime&&st&&et&&e.startTime<et&&e.endTime>st;
-  });
+  return getEvsByDay(tid,did).filter(function(e){return e.id!==excId&&e.startTime&&e.endTime&&st&&et&&e.startTime<et&&e.endTime>st});
 }
 function copyTrip(id){
   var trip=getTrip(id);if(!trip)return null;
@@ -637,8 +610,7 @@ function copyTrip(id){
   lsSet('tp:'+nid+':ev',evs);
   var trs=getTrs(id).map(function(t){return Object.assign({},t,{id:uid(),tripId:nid,fromId:map[t.fromId]||t.fromId,toId:map[t.toId]||t.toId})});
   lsSet('tp:'+nid+':tr',trs);
-  addIdx({id:nid,name:newTrip.name,startDate:newTrip.startDate,endDate:newTrip.endDate,
-    destinations:newTrip.destinations,coverImage:newTrip.coverImage,dayCount:days.length,evCount:evs.length});
+  addIdx({id:nid,name:newTrip.name,startDate:newTrip.startDate,endDate:newTrip.endDate,destinations:newTrip.destinations,coverImage:newTrip.coverImage,dayCount:days.length,evCount:evs.length});
   return newTrip;
 }
 function getTrs(tid){return lsGet('tp:'+tid+':tr')||[]}
@@ -650,9 +622,8 @@ function upsertTr(tid,d){
   lsSet('tp:'+tid+':tr',trs);return tr;
 }
 function deleteTr(tid,fromId){lsSet('tp:'+tid+':tr',getTrs(tid).filter(function(t){return t.fromId!==fromId}))}
-
-function exportTrip(tid){return{version:'1.1',exportedAt:now(),trip:getTrip(tid),days:getDays(tid),events:getEvs(tid),transports:getTrs(tid)}}
-function exportAll(){return{version:'1.1',exportedAt:now(),trips:getIndex().map(function(t){return exportTrip(t.id)})}}
+function exportTrip(tid){return{version:'1.2',exportedAt:now(),trip:getTrip(tid),days:getDays(tid),events:getEvs(tid),transports:getTrs(tid)}}
+function exportAll(){return{version:'1.2',exportedAt:now(),trips:getIndex().map(function(t){return exportTrip(t.id)})}}
 function importTrip(d){
   if(!d.trip)throw new Error('invalid');
   var nid=uid(),map={};
@@ -667,20 +638,6 @@ function importTrip(d){
   lsSet('tp:'+nid+':tr',trs);
   addIdx({id:nid,name:trip.name,startDate:trip.startDate,endDate:trip.endDate,destinations:trip.destinations,coverImage:trip.coverImage,dayCount:days.length,evCount:evs.length});
   return trip;
-}
-function genICS(tid){
-  var evs=getEvs(tid),trip=getTrip(tid),days=getDays(tid);
-  var fdt=function(date,time){var d=date.replace(/-/g,'');return time?d+'T'+time.replace(':','')+'00':d};
-  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Journi//TW','X-WR-CALNAME:'+trip.name,'CALSCALE:GREGORIAN'];
-  evs.forEach(function(ev){
-    var day=(days.find(function(d){return d.id===ev.dayId})||{}).date||trip.startDate;
-    lines.push('BEGIN:VEVENT','UID:'+ev.id+'@journi','SUMMARY:'+(ev.title||'行程'),
-      'DTSTART:'+fdt(day,ev.startTime),'DTEND:'+fdt(day,ev.endTime||ev.startTime));
-    if(ev.description)lines.push('DESCRIPTION:'+ev.description.replace(/\n/g,'\\n'));
-    if(ev.address)lines.push('LOCATION:'+ev.address);
-    lines.push('END:VEVENT');
-  });
-  lines.push('END:VCALENDAR');return lines.join('\r\n');
 }
 
 // ════ HELPERS ══════════════════════════════════════════════════
@@ -700,66 +657,59 @@ var ARTICLES={
     {t:'京都嵐山超私房5條散步路線',src:'痞客邦 · 2025.02',tags:['京都','散步'],bg:'linear-gradient(135deg,#A8C4B4,#5C8870)'},
     {t:'東京 2025 最新開幕景點與主題樂園',src:'Travel.tw · 2025.03',tags:['東京','新開幕'],bg:'linear-gradient(135deg,#C4A0B8,#7A5870)'},
   ],
-  KR:[
-    {t:'首爾聖水洞咖啡地圖 2025 最新整理',src:'IG Travel · 2025.03',tags:['首爾','咖啡'],bg:'linear-gradient(135deg,#C8A8B8,#886878)'},
-  ],
-  TH:[
-    {t:'清邁古城寺廟地圖：30 間不能錯過',src:'BK Magazine · 2025.02',tags:['清邁','寺廟'],bg:'linear-gradient(135deg,#D4A870,#8C6830)'},
-  ],
+  KR:[{t:'首爾聖水洞咖啡地圖 2025 最新整理',src:'IG Travel · 2025.03',tags:['首爾','咖啡'],bg:'linear-gradient(135deg,#C8A8B8,#886878)'}],
+  TH:[{t:'清邁古城寺廟地圖：30 間不能錯過',src:'BK Magazine · 2025.02',tags:['清邁','寺廟'],bg:'linear-gradient(135deg,#D4A870,#8C6830)'}],
 };
-
-// 優化：行程類別新增交通節點、咖啡廳、其他
 var EV_CATS=[
-  {v:'attraction',l:'🏛️ 景點',cls:'cat-a'},
-  {v:'restaurant',l:'🍜 餐廳',cls:'cat-r'},
-  {v:'hotel',l:'🏨 住宿',cls:'cat-h'},
-  {v:'shopping',l:'🛍️ 購物',cls:'cat-s'},
-  {v:'activity',l:'🎯 體驗',cls:'cat-x'},
-  {v:'transport',l:'🚉 交通節點',cls:'cat-t'},
-  {v:'cafe',l:'☕ 咖啡廳',cls:'cat-c'},
-  {v:'other',l:'📌 其他',cls:'cat-o'},
+  {v:'attraction',l:'🏛️ 景點',cls:'cat-a'},{v:'restaurant',l:'🍜 餐廳',cls:'cat-r'},
+  {v:'hotel',l:'🏨 住宿',cls:'cat-h'},{v:'shopping',l:'🛍️ 購物',cls:'cat-s'},
+  {v:'activity',l:'🎯 體驗',cls:'cat-x'},{v:'transport',l:'🚉 交通節點',cls:'cat-t'},
+  {v:'cafe',l:'☕ 咖啡廳',cls:'cat-c'},{v:'other',l:'📌 其他',cls:'cat-o'},
 ];
-function catL(c){
-  var x=EV_CATS.find(function(e){return e.v===c});
-  return x?x.l.split(' ').slice(1).join(' '):c;
-}
-function catCls(c){
-  var x=EV_CATS.find(function(e){return e.v===c});return x?x.cls:'';
-}
+function catL(c){var x=EV_CATS.find(function(e){return e.v===c});return x?x.l.replace(/^\S+\s/,''):c}
+function catCls(c){var x=EV_CATS.find(function(e){return e.v===c});return x?x.cls:''}
 
-// FIX：交通選項只保留 步行、電車、巴士、飛機、渡輪、計程車
+// FIX：交通選項只保留 6 種
 var MODES=[
-  {id:'walk',l:'步行',cls:'walk'},
-  {id:'rail',l:'電車',cls:'rail'},
-  {id:'bus',l:'巴士',cls:'bus'},
-  {id:'air',l:'飛機',cls:'air'},
-  {id:'ferry',l:'渡輪',cls:'ferry'},
-  {id:'taxi',l:'計程車',cls:'taxi'},
+  {id:'walk',l:'步行',cls:'walk'},{id:'rail',l:'電車',cls:'rail'},
+  {id:'bus',l:'巴士',cls:'bus'},{id:'air',l:'飛機',cls:'air'},
+  {id:'ferry',l:'渡輪',cls:'ferry'},{id:'taxi',l:'計程車',cls:'taxi'},
 ];
 var MICO={
   walk:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 12.5L10 10.5h2l1.5 3.5M9 16l1-3.5M13 16l-1-3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
   rail:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="5" y="5" width="12" height="10" rx="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 15l-1 2M14 15l1 2M5 11h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="13" r="1" fill="currentColor"/><circle cx="14" cy="13" r="1" fill="currentColor"/></svg>',
   bus:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="6" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 10h16M7 16l-1 1.5M15 16l1 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="7.5" cy="13" r="1" fill="currentColor"/><circle cx="14.5" cy="13" r="1" fill="currentColor"/></svg>',
-  air:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4.5 17.5L11 4l6.5 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17.5h16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 12.5h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+  air:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4.5 17.5L11 4l6.5 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17.5h16M7.5 12.5h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
   ferry:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 14c0-3 2.5-6 7-6s7 3 7 6v1H4v-1z" stroke="currentColor" stroke-width="1.4"/><path d="M9 8V6M13 8V6M11 5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2 18c2-1 4 0 6-1s4-1 6 0 4 1 6 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
-  taxi:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2.5" y="10" width="17" height="7" rx="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 10V9a1.5 1.5 0 011.5-1.5h7A1.5 1.5 0 0116 9v1" stroke="currentColor" stroke-width="1.4"/><circle cx="6.5" cy="16.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="16.5" r="1.5" fill="currentColor"/><path d="M9.5 8.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+  taxi:'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2.5" y="10" width="17" height="7" rx="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 10V9a1.5 1.5 0 011.5-1.5h7A1.5 1.5 0 0116 9v1" stroke="currentColor" stroke-width="1.4"/><circle cx="6.5" cy="16.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="16.5" r="1.5" fill="currentColor"/></svg>',
 };
 var MBGS={walk:'var(--amber-l)',rail:'var(--teal-l)',bus:'var(--sky-l)',air:'var(--rose-l)',ferry:'var(--navy-l)',taxi:'var(--grn-l)'};
 var MCLRS={walk:'var(--brown)',rail:'var(--teal)',bus:'var(--sky)',air:'var(--rose)',ferry:'var(--navy)',taxi:'var(--grn)'};
-var CURRENCIES=['JPY','KRW','TWD','USD','EUR','GBP','THB','SGD','AUD','HKD','VND','CNY','MOP'];
 
-function readFile(file){return new Promise(function(r,j){var fr=new FileReader();fr.onload=function(){r(fr.result)};fr.onerror=j;fr.readAsDataURL(file)})}
-function dlBlob(content,name,type){var b=new Blob([content],{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+// 優化：根據計畫旅遊地取得主幣別（最多顯示「旅遊地幣 + TWD」）
+function getTripCurrencies(tid){
+  var trip=getTrip(tid)||{};
+  var dests=trip.destinations||[];
+  var curs=['TWD'];
+  dests.forEach(function(c){
+    var x=COUNTRIES.find(function(k){return k.c===c});
+    if(x&&x.cur&&!curs.includes(x.cur))curs.unshift(x.cur);
+  });
+  // 最多顯示 2 個：主幣 + TWD
+  return curs.slice(0,2);
+}
 function getCurrency(destinations){
   if(!destinations||!destinations.length)return'JPY';
   var c=COUNTRIES.find(function(x){return x.c===destinations[0]});
   return c?c.cur:'JPY';
 }
 
+function readFile(file){return new Promise(function(r,j){var fr=new FileReader();fr.onload=function(){r(fr.result)};fr.onerror=j;fr.readAsDataURL(file)})}
+function dlBlob(content,name,type){var b=new Blob([content],{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+
 // ════ APP SHELL ════════════════════════════════════════════════
-var CS='rec',SH=[];
+var CS='rec';
 function go(id,params,push){
-  if(push!==false&&CS!==id)SH.push({id:CS,params:{}});
   var prev=document.querySelector('.screen.active');
   var next=document.getElementById('s-'+id);
   if(!next)return;
@@ -787,9 +737,7 @@ function confirmDialog(title,msg,okLabel,cb){
 var RC='JP';
 function iRec(){
   var bar=document.getElementById('cbar');
-  bar.innerHTML=COUNTRIES.map(function(c){
-    return'<div class="ctag'+(c.c===RC?' on':'')+'" data-c="'+c.c+'">'+c.f+' '+c.n+'</div>';
-  }).join('');
+  bar.innerHTML=COUNTRIES.map(function(c){return'<div class="ctag'+(c.c===RC?' on':'')+'" data-c="'+c.c+'">'+c.f+' '+c.n+'</div>'}).join('');
   bar.querySelectorAll('.ctag').forEach(function(el){el.onclick=function(){RC=el.dataset.c;iRec()}});
   var list=document.getElementById('rec-list');
   var arts=ARTICLES[RC]||[];
@@ -806,15 +754,12 @@ var TripTab='upcoming',TripFilter='';
 function iTrips(){
   var sel=document.getElementById('trips-filter');
   sel.innerHTML='<option value="">全部國家</option>';
+  // 優化：select 本身支援原生 scroll，列出所有國家
   COUNTRIES.forEach(function(c){sel.innerHTML+='<option value="'+c.c+'">'+c.f+' '+c.n+'</option>'});
   sel.value=TripFilter;
   sel.onchange=function(){TripFilter=sel.value;renderTrips()};
   document.querySelectorAll('.tab-pill').forEach(function(el){
-    el.onclick=function(){
-      TripTab=el.dataset.tab;
-      document.querySelectorAll('.tab-pill').forEach(function(x){x.classList.toggle('on',x.dataset.tab===TripTab)});
-      renderTrips();
-    };
+    el.onclick=function(){TripTab=el.dataset.tab;document.querySelectorAll('.tab-pill').forEach(function(x){x.classList.toggle('on',x.dataset.tab===TripTab)});renderTrips()};
   });
   renderTrips();
 }
@@ -835,14 +780,11 @@ function renderTrips(){
     return;
   }
   list.innerHTML=filtered.map(tripCardHTML).join('');
-  list.querySelectorAll('.tc').forEach(function(el){
-    el.onclick=function(e){if(e.target.closest('.tc-btn'))return;go('editor',{tid:el.dataset.id})};
-  });
-  list.querySelectorAll('.tc-btn-edit').forEach(function(el){
-    el.onclick=function(e){e.stopPropagation();openEditPlan(el.dataset.id)};
-  });
-  list.querySelectorAll('.tc-btn-copy').forEach(function(el){
-    el.onclick=function(e){e.stopPropagation();var t=copyTrip(el.dataset.id);if(t){iTrips();toast('已複製「'+t.name+'」');}};
+  list.querySelectorAll('.tc').forEach(function(el){el.onclick=function(e){if(e.target.closest('.tc-btn'))return;go('editor',{tid:el.dataset.id})}});
+  list.querySelectorAll('.tc-btn-edit').forEach(function(el){el.onclick=function(e){e.stopPropagation();openEditPlan(el.dataset.id)}});
+  list.querySelectorAll('.tc-btn-copy').forEach(function(el){el.onclick=function(e){e.stopPropagation();var t=copyTrip(el.dataset.id);if(t){iTrips();toast('已複製「'+t.name+'」')}}});
+  list.querySelectorAll('.tc-btn-png').forEach(function(el){
+    el.onclick=function(e){e.stopPropagation();exportTripPNG(el.dataset.id)};
   });
   list.querySelectorAll('.tc-btn-del').forEach(function(el){
     el.onclick=function(e){
@@ -861,18 +803,13 @@ function tripCardHTML(t){
   var past=isPast(t);
   var FB=['linear-gradient(135deg,#D4956A,#8C5E3A)','linear-gradient(160deg,#B8A890,#8C7060)','linear-gradient(135deg,#C8B89C,#907860)'];
   var slots;
-  if(t.coverImage){
-    slots='<div class="tc-img" style="grid-column:1/-1;background-image:url(\''+t.coverImage+'\')"></div>';
-  } else {
+  if(t.coverImage){slots='<div class="tc-img" style="grid-column:1/-1;background-image:url(\''+t.coverImage+'\')"></div>';}
+  else{
     var imgs=evs.filter(function(e){return e.images&&e.images.length}).slice(0,3).map(function(e){return e.images[0]});
-    slots=[0,1,2].map(function(i){
-      return imgs[i]?'<div class="tc-img" style="background-image:url(\''+imgs[i]+'\')"></div>'
-        :'<div class="tc-img" style="background:'+FB[i]+'"></div>';
-    }).join('');
+    slots=[0,1,2].map(function(i){return imgs[i]?'<div class="tc-img" style="background-image:url(\''+imgs[i]+'\')"></div>':'<div class="tc-img" style="background:'+FB[i]+'"></div>'}).join('');
   }
   var dests=(t.destinations||[]).map(function(c){var x=COUNTRIES.find(function(k){return k.c===c});return x?x.f:c}).join(' ');
-  // FIX: past badge 只在卡片右上角出現一次，不在 tc-txt 內
-  return '<div class="tc" data-id="'+t.id+'">'
+  return'<div class="tc" data-id="'+t.id+'">'
     +(past?'<div class="past-badge-outer">已完成</div>':'')
     +'<div class="tc-cover">'+slots+'<div class="tc-ov"></div>'
     +'<div class="tc-txt"><div class="tc-name">'+dests+' '+t.name+'</div>'
@@ -883,8 +820,148 @@ function tripCardHTML(t){
     +'<div class="tc-actions">'
     +'<div class="tc-btn tc-btn-edit" data-id="'+t.id+'">✏️ 編輯</div>'
     +'<div class="tc-btn tc-btn-copy" data-id="'+t.id+'">⎘ 複製</div>'
+    +'<div class="tc-btn tc-btn-png" data-id="'+t.id+'" title="匯出 PNG">🖼 匯出</div>'
     +'<div class="tc-btn tc-btn-del" data-id="'+t.id+'" style="color:var(--rose)">🗑 刪除</div>'
     +'</div></div>';
+}
+
+// ════ 匯出計畫 PNG ════════════════════════════════════════════
+function exportTripPNG(tid){
+  var trip=getTrip(tid);if(!trip)return;
+  var days=getDays(tid);var evs=getEvs(tid);
+  // 顯示 loading
+  var loader=document.createElement('div');
+  loader.className='export-loading';
+  loader.innerHTML='<div class="spinner"></div><div>正在產生計畫圖片…</div>';
+  document.body.appendChild(loader);
+  setTimeout(function(){
+    try{
+      var CW=375,PAD=20,FONT="'DM Sans',sans-serif";
+      var dests=(trip.destinations||[]).map(function(c){var x=COUNTRIES.find(function(k){return k.c===c});return x?x.f+' '+x.n:c}).join('  ');
+      // 計算高度
+      var headerH=140,footerH=48,dayH=32,evH=56,trH=28,gap=6;
+      var totalH=headerH;
+      days.forEach(function(d){
+        totalH+=dayH+gap;
+        var de=evs.filter(function(e){return e.dayId===d.id});
+        de.forEach(function(ev,i){totalH+=evH+gap;if(i<de.length-1)totalH+=trH+gap});
+      });
+      totalH+=footerH+PAD;
+
+      var canvas=document.createElement('canvas');
+      var ratio=window.devicePixelRatio||2;
+      canvas.width=CW*ratio;canvas.height=totalH*ratio;
+      canvas.style.width=CW+'px';canvas.style.height=totalH+'px';
+      var ctx=canvas.getContext('2d');
+      ctx.scale(ratio,ratio);
+
+      // Background
+      ctx.fillStyle='#F7F3EE';ctx.fillRect(0,0,CW,totalH);
+
+      // Header bg gradient
+      var grad=ctx.createLinearGradient(0,0,CW,headerH);
+      grad.addColorStop(0,'#8B6F52');grad.addColorStop(1,'#C4A882');
+      ctx.fillStyle=grad;
+      roundRect(ctx,0,0,CW,headerH,0);ctx.fill();
+
+      // 封面圖
+      function drawHeader(){
+        // Overlay
+        ctx.fillStyle='rgba(44,31,20,0.45)';roundRect(ctx,0,0,CW,headerH,0);ctx.fill();
+        // Logo
+        ctx.font='bold 13px '+FONT;ctx.fillStyle='rgba(255,255,255,.6)';ctx.fillText('✈ Journi 旅你',PAD,28);
+        // 計畫名稱
+        ctx.font="bold 26px 'DM Serif Display',serif";ctx.fillStyle='#fff';
+        ctx.fillText(trip.name,PAD,66);
+        // 目的地
+        ctx.font='14px '+FONT;ctx.fillStyle='rgba(255,255,255,.85)';
+        ctx.fillText(dests,PAD,90);
+        // 日期
+        ctx.font='12px '+FONT;ctx.fillStyle='rgba(255,255,255,.7)';
+        ctx.fillText(fmtDate(trip.startDate)+' – '+fmtDate(trip.endDate)+'  ·  '+days.length+'天',PAD,112);
+        // 進度條
+        var evCount=evs.length;
+        ctx.fillStyle='rgba(255,255,255,.3)';roundRect(ctx,PAD,124,CW-PAD*2,4,2);ctx.fill();
+        var pct=days.length>0?(new Set(evs.map(function(e){return e.dayId})).size/days.length):0;
+        ctx.fillStyle='rgba(255,255,255,.9)';roundRect(ctx,PAD,124,Math.max(0,(CW-PAD*2)*pct),4,2);ctx.fill();
+        ctx.font='10px '+FONT;ctx.fillStyle='rgba(255,255,255,.6)';
+        ctx.fillText(evCount+' 個行程',PAD,118);
+      }
+
+      if(trip.coverImage){
+        var img=new Image();
+        img.onload=function(){
+          ctx.save();roundRect(ctx,0,0,CW,headerH,0);ctx.clip();
+          var iR=img.width/img.height,cR=CW/headerH;
+          var sw,sh,sx=0,sy=0;
+          if(iR>cR){sh=img.height;sw=sh*cR;sx=(img.width-sw)/2}else{sw=img.width;sh=sw/cR;sy=(img.height-sh)/2}
+          ctx.drawImage(img,sx,sy,sw,sh,0,0,CW,headerH);
+          ctx.restore();
+          drawHeader();drawBody();finishPNG(canvas,trip,loader);
+        };img.onerror=function(){drawHeader();drawBody();finishPNG(canvas,trip,loader)};
+        img.src=trip.coverImage;
+      } else {drawHeader();drawBody();finishPNG(canvas,trip,loader);}
+
+      function drawBody(){
+        var y=headerH+PAD;
+        var CAT_CLR={attraction:'#C8813A',restaurant:'#C47070',hotel:'#4A8C7A',shopping:'#9070C0',activity:'#3B6D11',transport:'#5080B8',cafe:'#A06830',other:'#9E8270'};
+        days.forEach(function(d){
+          // Day header
+          ctx.fillStyle='#8B6F52';ctx.font='bold 11px '+FONT;
+          ctx.fillText('Day '+d.n+'  '+parseLocalDate(d.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}),PAD,y+16);
+          y+=dayH+gap;
+          var de=evs.filter(function(e){return e.dayId===d.id}).sort(function(a,b){return(a.startTime||'').localeCompare(b.startTime||'')});
+          de.forEach(function(ev,i){
+            // Event card
+            ctx.fillStyle='#fff';roundRect(ctx,PAD,y,CW-PAD*2,evH,8);ctx.fill();
+            ctx.strokeStyle='#E5DDD2';ctx.lineWidth=1;roundRect(ctx,PAD,y,CW-PAD*2,evH,8);ctx.stroke();
+            // 左側色條
+            ctx.fillStyle=CAT_CLR[ev.category]||'#C4A882';roundRect(ctx,PAD,y,4,evH,2);ctx.fill();
+            // 標題
+            ctx.font='bold 13px '+FONT;ctx.fillStyle='#2C1F14';
+            var ttl=(ev.title||'未命名行程').slice(0,20);
+            ctx.fillText(ttl,PAD+14,y+22);
+            // 時間
+            if(ev.startTime){ctx.font='11px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('🕐 '+ev.startTime+(ev.endTime?' – '+ev.endTime:''),PAD+14,y+40)}
+            // 地址
+            if(ev.address){ctx.font='10px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('📍 '+ev.address.slice(0,22),PAD+14+(ev.startTime?100:0),y+40)}
+            // 心情
+            if(ev.mood){ctx.font='16px '+FONT;ctx.fillText(ev.mood,CW-PAD-22,y+28)}
+            y+=evH+gap;
+            // Transport
+            if(i<de.length-1){
+              var trs=getTrs(tid);var tr=trs.find(function(t){return t.fromId===ev.id});
+              if(tr&&tr.mode){
+                var trLabel={walk:'步行',rail:'電車',bus:'巴士',air:'飛機',ferry:'渡輪',taxi:'計程車'}[tr.mode]||tr.mode;
+                var trClr={walk:'#8B6F52',rail:'#4A8C7A',bus:'#5080B8',air:'#C47070',ferry:'#4060A0',taxi:'#3B6D11'}[tr.mode]||'#9E8270';
+                ctx.fillStyle='rgba(0,0,0,.04)';roundRect(ctx,PAD+20,y,130,22,11);ctx.fill();
+                ctx.font='10px '+FONT;ctx.fillStyle=trClr;
+                ctx.fillText(trLabel+(tr.durationMin?' · '+tr.durationMin+'分':''),PAD+30,y+15);
+              } else {
+                ctx.fillStyle='rgba(0,0,0,.03)';roundRect(ctx,PAD+20,y,90,22,11);ctx.fill();
+                ctx.font='10px '+FONT;ctx.fillStyle='#C4A882';ctx.fillText('── 前往下一站',PAD+28,y+15);
+              }
+              y+=trH+gap;
+            }
+          });
+          if(!de.length){ctx.font='11px '+FONT;ctx.fillStyle='#9E8270';ctx.fillText('（尚無行程）',PAD,y+12);y+=24+gap}
+        });
+        // Footer
+        ctx.fillStyle='#8B6F52';ctx.font='10px '+FONT;ctx.fillStyle='#9E8270';
+        ctx.fillText('由 Journi 旅你 產生  ·  journi.app',PAD,totalH-16);
+      }
+    }catch(e){document.body.removeChild(loader);toast('匯出失敗：'+e.message)}
+  },100);
+}
+function finishPNG(canvas,trip,loader){
+  try{
+    var url=canvas.toDataURL('image/png');
+    var a=document.createElement('a');a.href=url;a.download='journi-'+trip.name+'-'+toDateStr(new Date())+'.png';a.click();
+    document.body.removeChild(loader);toast('計畫圖片已下載 ✓');
+  }catch(e){document.body.removeChild(loader);toast('匯出失敗（CORS 限制）')}
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
 
 // ════ MODAL: ADD / EDIT PLAN ══════════════════════════════════
@@ -898,42 +975,38 @@ function iAP(editTid){
   document.getElementById('ap-s').value=existing?existing.startDate:'';
   document.getElementById('ap-e').value=existing?existing.endDate:'';
   if(existing){AD=(existing.destinations||[]).slice();ACOV=existing.coverImage||null;}
-  // FIX: 封面預覽 - 使用 background-image 而非 img 子元素，避免遮蓋
-  var cvbtn=document.getElementById('ap-cvbtn');
-  var inner=document.getElementById('ap-cv-inner');
-  if(ACOV){
-    cvbtn.style.backgroundImage='url(\''+ACOV+'\')';
-    cvbtn.style.backgroundSize='cover';
-    cvbtn.style.backgroundPosition='center';
-    inner.style.opacity='0';
-  } else {
-    cvbtn.style.backgroundImage='';inner.style.opacity='1';
-  }
+  updateCvBtn();
   rDTags();rDGrid('');
   var ctrl=document.getElementById('ap-dc'),dd=document.getElementById('ap-dd');
   ctrl.onclick=function(e){e.stopPropagation();ctrl.classList.toggle('open');dd.classList.toggle('open')};
   document.getElementById('ap-dsrch').oninput=function(){rDGrid(this.value.trim())};
-  // FIX: 重新建立 file input 避免舊事件殘留
   var oldInp=document.getElementById('ap-cv-inp');
-  var newInp=oldInp.cloneNode(false);
-  oldInp.parentNode.replaceChild(newInp,oldInp);
-  newInp.id='ap-cv-inp';
+  var newInp=oldInp.cloneNode(false);oldInp.parentNode.replaceChild(newInp,oldInp);newInp.id='ap-cv-inp';
   newInp.onchange=function(){
     var f=this.files[0];if(!f)return;
     var reader=new FileReader();
-    reader.onload=function(ev){
-      ACOV=ev.target.result;
-      cvbtn.style.backgroundImage='url(\''+ACOV+'\')';
-      cvbtn.style.backgroundSize='cover';
-      cvbtn.style.backgroundPosition='center';
-      inner.style.opacity='0';
-    };reader.readAsDataURL(f);
+    reader.onload=function(ev){ACOV=ev.target.result;updateCvBtn()};
+    reader.readAsDataURL(f);
   };
-  cvbtn.onclick=function(){document.getElementById('ap-cv-inp').click()};
+  var cvbtn=document.getElementById('ap-cvbtn');
+  cvbtn.onclick=function(e){if(e.target.closest('.cv-del'))return;document.getElementById('ap-cv-inp').click()};
+  // 優化：封面刪除按鈕
+  document.getElementById('ap-cv-del').onclick=function(e){e.stopPropagation();ACOV=null;updateCvBtn()};
   document.getElementById('ap-cls-btn').onclick=function(){closeM('m-add')};
   document.getElementById('m-add').onclick=null;
   document.getElementById('ap-ok').onclick=submitAP;
   openM('m-add');
+}
+function updateCvBtn(){
+  var cvbtn=document.getElementById('ap-cvbtn');
+  var inner=document.getElementById('ap-cv-inner');
+  if(ACOV){
+    cvbtn.style.backgroundImage='url(\''+ACOV+'\')';
+    cvbtn.style.backgroundSize='cover';cvbtn.style.backgroundPosition='center';
+    cvbtn.classList.add('has-img');inner.style.opacity='0';
+  } else {
+    cvbtn.style.backgroundImage='';cvbtn.classList.remove('has-img');inner.style.opacity='1';
+  }
 }
 function openEditPlan(tid){iAP(tid)}
 function rDTags(){
@@ -952,8 +1025,7 @@ function rDGrid(q){
 }
 function submitAP(){
   var name=document.getElementById('ap-name').value.trim();
-  var s=document.getElementById('ap-s').value;
-  var e=document.getElementById('ap-e').value;
+  var s=document.getElementById('ap-s').value,e=document.getElementById('ap-e').value;
   if(!name){toast('請輸入計畫名稱');return}
   if(!s||!e){toast('請選擇旅行日期');return}
   if(parseLocalDate(e)<parseLocalDate(s)){toast('回程不能早於出發日');return}
@@ -973,11 +1045,9 @@ function iEditor(p){
   ET=p.tid;if(!ET)return;
   var trip=getTrip(ET);if(!trip)return;
   document.getElementById('ed-name').textContent=trip.name;
-  var s=fmtDate(trip.startDate),e=fmtDate(trip.endDate),days=getDays(ET);
-  document.getElementById('ed-meta').textContent=s+(s&&e?' — ':'')+e+'  ·  '+days.length+'天';
+  var days=getDays(ET);
+  document.getElementById('ed-meta').textContent=fmtDate(trip.startDate)+' – '+fmtDate(trip.endDate)+'  ·  '+days.length+'天';
   document.getElementById('ed-back').onclick=function(){go('trips')};
-  document.getElementById('btn-ics').onclick=function(){dlBlob(genICS(ET),'journi-'+trip.name+'.ics','text/calendar');toast('行事曆匯出成功 ✓')};
-  document.getElementById('btn-json').onclick=function(){dlBlob(JSON.stringify(exportTrip(ET),null,2),'journi-'+trip.name+'.json','application/json');toast('JSON 備份完成 ✓')};
   EDay=days.length?days[0].id:null;
   rDayBar();
 }
@@ -987,276 +1057,186 @@ function rDayBar(){
   bar.innerHTML=days.map(function(d){
     return'<div class="dtab'+(d.id===EDay?' on':'')+'" data-id="'+d.id+'">'
       +'<span style="text-align:center"><span style="display:block">Day '+d.n+'</span>'
-      // FIX: 使用 parseLocalDate 避免顯示 Invalid Date
       +'<span style="font-size:9px">'+parseLocalDate(d.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'})+'</span></span>'
-      +(days.length>1?'<div class="dtab-del" data-did="'+d.id+'" title="刪除此天">×</div>':'')+'</div>';
+      +(days.length>1?'<div class="dtab-del" data-did="'+d.id+'">×</div>':'')+'</div>';
   }).join('')+'<div class="dtab add" id="add-day-btn">＋</div>';
   bar.querySelectorAll('.dtab:not(.add)').forEach(function(el){
     el.addEventListener('click',function(e){
       if(e.target.closest('.dtab-del'))return;
-      EDay=el.dataset.id;
-      bar.querySelectorAll('.dtab:not(.add)').forEach(function(x){x.classList.toggle('on',x.dataset.id===EDay)});
-      rTL();
+      EDay=el.dataset.id;bar.querySelectorAll('.dtab:not(.add)').forEach(function(x){x.classList.toggle('on',x.dataset.id===EDay)});rTL();
     });
   });
-  bar.querySelectorAll('.dtab-del').forEach(function(el){
-    el.onclick=function(e){e.stopPropagation();deleteDay(el.dataset.did)};
-  });
+  bar.querySelectorAll('.dtab-del').forEach(function(el){el.onclick=function(e){e.stopPropagation();deleteDay(el.dataset.did)}});
   document.getElementById('add-day-btn').onclick=addDay;
   rTL();
 }
-
-// FIX: deleteDay 支援刪除任意天，重新計算 n，並更新 trip.endDate
 function deleteDay(did){
-  var days=getDays(ET);
-  if(days.length<=1){toast('最少需要一天，無法刪除');return}
+  var days=getDays(ET);if(days.length<=1){toast('最少需要一天，無法刪除');return}
   var target=days.find(function(d){return d.id===did});
   var evs=getEvsByDay(ET,did);
-  var msg=evs.length?'此天有 '+evs.length+' 個行程，刪除後資料將一同移除。':'確定刪除 Day '+(target?target.n:'')+' 嗎？';
-  confirmDialog('刪除天數',msg,'確認刪除',function(){
-    // 刪除該天的所有行程
+  confirmDialog('刪除天數',(evs.length?'此天有 '+evs.length+' 個行程，刪除後一同移除。':'確定刪除 Day '+(target?target.n:'')+' 嗎？'),'確認刪除',function(){
     evs.forEach(function(ev){deleteEv(ET,ev.id)});
-    // 重建天數陣列，重新排序 n
     var newDays=days.filter(function(d){return d.id!==did});
-    newDays.forEach(function(d,i){d.n=i+1});
-    saveDays(ET,newDays);
-    // 更新 trip.endDate 為最後一天的 date
-    if(newDays.length){
-      var lastDate=newDays[newDays.length-1].date;
-      updateTrip(ET,{endDate:lastDate});
-    }
-    // 若刪除的是當前選中天，改選第一天
+    newDays.forEach(function(d,i){d.n=i+1});saveDays(ET,newDays);
+    if(newDays.length)updateTrip(ET,{endDate:newDays[newDays.length-1].date});
     if(EDay===did)EDay=newDays[0]?newDays[0].id:null;
-    rDayBar();
-    toast('Day '+(target?target.n:'')+' 已刪除');
+    rDayBar();toast('Day '+(target?target.n:'')+' 已刪除');
   });
 }
-
 function addDay(){
-  var trip=getTrip(ET),days=getDays(ET);
-  var lastDay=days[days.length-1];
-  var cur=lastDay?parseLocalDate(lastDay.date):parseLocalDate(trip.endDate);
+  var days=getDays(ET),last=days[days.length-1];
+  var cur=last?parseLocalDate(last.date):parseLocalDate(getTrip(ET).endDate);
   cur.setDate(cur.getDate()+1);
   var neStr=toDateStr(cur);
   var newDay={id:uid(),tripId:ET,date:neStr,n:days.length+1,note:''};
-  var newDays=days.concat([newDay]);
-  saveDays(ET,newDays);
-  updateTrip(ET,{endDate:neStr});
-  EDay=newDay.id;
-  rDayBar();toast('已新增第 '+newDay.n+' 天');
+  saveDays(ET,days.concat([newDay]));updateTrip(ET,{endDate:neStr});
+  EDay=newDay.id;rDayBar();toast('已新增第 '+newDay.n+' 天');
 }
 
 // ════ TIMELINE ═════════════════════════════════════════════════
 function rTL(){
-  var tl=document.getElementById('tl');
-  if(!ET||!EDay){tl.innerHTML='';return}
-  var evs=getEvsByDay(ET,EDay);
-  var trs=getTrs(ET);
+  var tl=document.getElementById('tl');if(!ET||!EDay){tl.innerHTML='';return}
+  var evs=getEvsByDay(ET,EDay),trs=getTrs(ET);
   tl.innerHTML='';
   if(!evs.length){
-    tl.innerHTML='<div style="text-align:center;padding:48px 0 24px;color:var(--ink3)">'
-      +'<div style="font-size:40px;margin-bottom:12px">🗺️</div>'
-      +'<div style="font-family:\'DM Serif Display\',serif;font-size:18px;color:var(--ink2);margin-bottom:6px">今天還沒有行程</div>'
-      +'<div style="font-size:13px">點擊下方「新增行程」開始規劃</div></div>';
+    tl.innerHTML='<div style="text-align:center;padding:48px 0 24px;color:var(--ink3)"><div style="font-size:40px;margin-bottom:12px">🗺️</div><div style="font-family:\'DM Serif Display\',serif;font-size:18px;color:var(--ink2);margin-bottom:6px">今天還沒有行程</div><div style="font-size:13px">點擊下方「新增行程」開始規劃</div></div>';
   } else {
     evs.forEach(function(ev,i){
       var cf=checkConflict(ET,EDay,ev.startTime,ev.endTime,ev.id);
       if(cf.length)tl.innerHTML+='<div class="conflict">⚠ 時間衝突：'+ev.title+' 與 '+cf.map(function(x){return x.title}).join('、')+' 重疊</div>';
       tl.innerHTML+=evHTML(ev,i===evs.length-1);
-      if(i<evs.length-1){
-        var tr=trs.find(function(t){return t.fromId===ev.id});
-        tl.innerHTML+=trNodeHTML(ev.id,tr,i);
-      }
+      if(i<evs.length-1){var tr=trs.find(function(t){return t.fromId===ev.id});tl.innerHTML+=trNodeHTML(ev.id,tr)}
     });
   }
   tl.innerHTML+='<div class="add-ev"><button class="add-ev-btn" id="add-ev-btn"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v10M1.5 6.5h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> 新增行程</button></div>';
   document.getElementById('add-ev-btn').onclick=function(){
-    var lastEvs=getEvsByDay(ET,EDay);
-    var defaultStart='';
-    if(lastEvs.length){var last=lastEvs[lastEvs.length-1];defaultStart=last.endTime||last.startTime||''}
-    openEvModal(null,defaultStart);
+    var last=getEvsByDay(ET,EDay);var ds='';
+    if(last.length){var lv=last[last.length-1];ds=lv.endTime||lv.startTime||''}
+    openEvModal(null,ds);
   };
-  // 綁定操作按鈕
   tl.querySelectorAll('[data-ev]').forEach(function(row){
     var eid=row.dataset.ev;
-    var editBtn=row.querySelector('[data-edit]');
-    var mapBtn=row.querySelector('[data-mapev]');
-    var delBtn=row.querySelector('.ev-del-btn');
-    if(editBtn)editBtn.onclick=function(){openEvModal(eid)};
-    if(mapBtn)mapBtn.onclick=function(){openMapForEv(eid)};
-    if(delBtn)delBtn.onclick=function(e){e.stopPropagation();delEv(eid)};
+    var eb=row.querySelector('[data-edit]'),mb=row.querySelector('[data-mapev]'),db=row.querySelector('.ev-del-btn');
+    if(eb)eb.onclick=function(){openEvModal(eid)};
+    if(mb)mb.onclick=function(){openMapForEv(eid)};
+    if(db)db.onclick=function(e){e.stopPropagation();delEv(eid)};
   });
   tl.querySelectorAll('[data-tr]').forEach(function(el){el.onclick=function(){openTrModal(el.dataset.tr)}});
-  // 重新綁定拖曳（含 touch 支援）
   bindEvDragAndTouch();
 }
-
 function evHTML(ev,last){
-  var imgHtml=ev.images&&ev.images.length
-    ?'<div class="ev-img" style="background-image:url(\''+ev.images[0]+'\')"></div>'
-    :'';
+  var imgHtml=ev.images&&ev.images.length?'<div class="ev-img" style="background-image:url(\''+ev.images[0]+'\')"></div>':'';
   var ts=ev.startTime?(ev.startTime+(ev.endTime?' – '+ev.endTime:'')):'';
   var as=ev.address?'<span>📍 '+ev.address.slice(0,20)+(ev.address.length>20?'…':'')+'</span>':'';
   return'<div class="tlr" data-ev="'+ev.id+'">'
     +'<div class="tlt"><span class="tlt-v">'+ev.startTime+'</span></div>'
     +'<div class="tls"><div class="dot'+(ev.startTime?' on':'')+'"></div>'+(last?'':'<div class="ln"></div>')+'</div>'
     +'<div class="tlc"><div class="ev">'
-    +'<div class="ev-del-btn" title="刪除"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"/></svg></div>'
-    +imgHtml+'<div class="ev-bd">'
-    +'<div class="ev-cat '+catCls(ev.category)+'">'+catL(ev.category)+'</div>'
+    +'<div class="ev-del-btn"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"/></svg></div>'
+    +imgHtml+'<div class="ev-bd"><div class="ev-cat '+catCls(ev.category)+'">'+catL(ev.category)+'</div>'
     +'<div class="ev-ttl">'+(ev.title||'（未命名行程）')+'</div>'
-    +'<div class="ev-meta">'+(ts?'<span>🕐 '+ts+'</span>':'')+as+'</div>'
-    +'</div>'
-    +'<div class="ev-acts">'
-    +'<button class="ev-btn" data-edit="1">編輯</button>'
-    +'<button class="ev-btn" data-mapev="1">地圖</button>'
+    +'<div class="ev-meta">'+(ts?'<span>🕐 '+ts+'</span>':'')+as+'</div></div>'
+    +'<div class="ev-acts"><button class="ev-btn" data-edit="1">編輯</button><button class="ev-btn" data-mapev="1">地圖</button>'
     +(ev.links&&ev.links.length?'<button class="ev-btn" onclick="window.open(\''+ev.links[0].url+'\',\'_blank\')">連結</button>':'')
-    +(ev.mood?'<span style="font-size:14px">'+ev.mood+'</span>':'')
-    +'</div>'
+    +(ev.mood?'<span style="font-size:14px">'+ev.mood+'</span>':'')+'</div>'
     +'<div class="ev-drag" data-drag-handle="'+ev.id+'"><div class="db"></div><div class="db"></div></div>'
     +'</div></div></div>';
 }
-
-function trNodeHTML(fromId,tr,idx){
+function trNodeHTML(fromId,tr){
   var has=tr&&tr.mode;
   var lbl=has?({walk:'步行',rail:'電車',bus:'巴士',air:'飛機',ferry:'渡輪',taxi:'計程車'}[tr.mode]||tr.mode):'＋ 設定交通';
   var cls=has?('tr-'+tr.mode):'tr-none';
   var dur=has&&tr.durationMin?tr.durationMin+'分'+(tr.cost?' · '+(tr.currency||'')+''+tr.cost:''):'';
-  return'<div class="tlr tr-container" style="align-items:center">'
-    +'<div class="tlt"></div>'
+  return'<div class="tlr tr-container" style="align-items:center"><div class="tlt"></div>'
     +'<div class="tls"><div class="tr-dot"></div><div class="ln" style="min-height:26px"></div></div>'
     +'<div class="tlc" style="padding-bottom:0"><div class="tr-row">'
-    +'<div class="tr-badge '+cls+'" data-tr="'+fromId+'">'+(has?'':'')+''+lbl+'</div>'
-    +(dur?'<span class="tr-dur">'+dur+'</span>':'')
-    +'</div></div></div>';
+    +'<div class="tr-badge '+cls+'" data-tr="'+fromId+'">'+lbl+'</div>'
+    +(dur?'<span class="tr-dur">'+dur+'</span>':'')+'</div></div></div>';
 }
+function openMapForEv(eid){var ev=getEvs(ET).find(function(e){return e.id===eid});if(!ev)return;var url=ev.googleMapsUrl||(ev.address?'https://maps.google.com/?q='+encodeURIComponent(ev.address):null);if(url)window.open(url,'_blank');else toast('尚未設定地址')}
+function delEv(eid){confirmDialog('刪除行程','確定要刪除此行程？','確認刪除',function(){deleteEv(ET,eid);rTL();toast('行程已刪除')})}
 
-function openMapForEv(eid){
-  var ev=getEvs(ET).find(function(e){return e.id===eid});
-  if(!ev)return;
-  var url=ev.googleMapsUrl||(ev.address?'https://maps.google.com/?q='+encodeURIComponent(ev.address):null);
-  if(url)window.open(url,'_blank');else toast('尚未設定地址');
-}
-function delEv(eid){
-  confirmDialog('刪除行程','確定要刪除此行程？','確認刪除',function(){
-    deleteEv(ET,eid);rTL();toast('行程已刪除');
-  });
-}
-
-// ════ 拖曳排序（支援 mouse + touch）══════════════════════════
+// ════ DRAG & TOUCH 排序 ════════════════════════════════════════
 function bindEvDragAndTouch(){
   var tl=document.getElementById('tl');
   var handles=[].slice.call(tl.querySelectorAll('[data-drag-handle]'));
   handles.forEach(function(handle){
-    var row=handle.closest('[data-ev]');
-    if(!row)return;
+    var row=handle.closest('[data-ev]');if(!row)return;
     var eid=row.dataset.ev;
-    // --- Mouse drag ---
     handle.setAttribute('draggable','true');
     handle.addEventListener('dragstart',function(e){
-      e.dataTransfer.effectAllowed='move';
-      e.dataTransfer.setData('text/plain',eid);
+      e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',eid);
       setTimeout(function(){var c=row.querySelector('.ev');if(c)c.classList.add('dragging')},0);
     });
-    handle.addEventListener('dragend',function(){
-      tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragging','dragover')});
-    });
-    // dragover / drop on the .tlr row
+    handle.addEventListener('dragend',function(){tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragging','dragover')})});
     row.addEventListener('dragover',function(e){
       e.preventDefault();e.dataTransfer.dropEffect='move';
       tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragover')});
       var c=row.querySelector('.ev');if(c)c.classList.add('dragover');
     });
-    row.addEventListener('dragleave',function(e){
-      if(!row.contains(e.relatedTarget)){var c=row.querySelector('.ev');if(c)c.classList.remove('dragover');}
-    });
+    row.addEventListener('dragleave',function(e){if(!row.contains(e.relatedTarget)){var c=row.querySelector('.ev');if(c)c.classList.remove('dragover')}});
     row.addEventListener('drop',function(e){
-      e.preventDefault();
-      tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragging','dragover')});
+      e.preventDefault();tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragging','dragover')});
       var srcId=e.dataTransfer.getData('text/plain');
       if(srcId&&srcId!==eid){
-        var allRows=[].slice.call(tl.querySelectorAll('[data-ev]'));
-        var ids=allRows.map(function(r){return r.dataset.ev});
+        var ids=[].slice.call(tl.querySelectorAll('[data-ev]')).map(function(r){return r.dataset.ev});
         var si=ids.indexOf(srcId),di=ids.indexOf(eid);
         if(si!==-1&&di!==-1){ids.splice(si,1);ids.splice(di,0,srcId);reorderEvs(ET,EDay,ids);rTL();}
       }
     });
-
-    // --- Touch drag ---
-    var touchSrcId=null,ghostEl=null,lastTarget=null;
+    // Touch
+    var tSrc=null,ghost=null,lastTgt=null;
     handle.addEventListener('touchstart',function(e){
-      touchSrcId=eid;
-      var touch=e.touches[0];
-      // 建立視覺 ghost
+      tSrc=eid;var touch=e.touches[0];
       var card=row.querySelector('.ev');
-      if(card){
-        ghostEl=card.cloneNode(true);
-        ghostEl.style.cssText='position:fixed;left:0;top:0;width:'+card.offsetWidth+'px;opacity:.7;pointer-events:none;z-index:9999;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translate('+touch.clientX+'px,'+(touch.clientY-40)+'px)';
-        document.body.appendChild(ghostEl);
-        card.classList.add('dragging');
-      }
+      if(card){ghost=card.cloneNode(true);ghost.style.cssText='position:fixed;left:0;top:0;width:'+card.offsetWidth+'px;opacity:.7;pointer-events:none;z-index:9999;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translate('+touch.clientX+'px,'+(touch.clientY-40)+'px)';document.body.appendChild(ghost);card.classList.add('dragging')}
       e.preventDefault();
     },{passive:false});
-
     handle.addEventListener('touchmove',function(e){
-      if(!touchSrcId||!ghostEl)return;
-      var touch=e.touches[0];
-      ghostEl.style.transform='translate('+touch.clientX+'px,'+(touch.clientY-40)+'px)';
-      // 找到 touch 正下方的 row
-      ghostEl.style.display='none';
-      var el=document.elementFromPoint(touch.clientX,touch.clientY);
-      ghostEl.style.display='';
-      var targetRow=el?el.closest('[data-ev]'):null;
+      if(!tSrc||!ghost)return;var touch=e.touches[0];
+      ghost.style.transform='translate('+touch.clientX+'px,'+(touch.clientY-40)+'px)';
+      ghost.style.display='none';var el=document.elementFromPoint(touch.clientX,touch.clientY);ghost.style.display='';
+      var tRow=el?el.closest('[data-ev]'):null;
       tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragover')});
-      if(targetRow&&targetRow.dataset.ev!==touchSrcId){
-        var tc=targetRow.querySelector('.ev');if(tc)tc.classList.add('dragover');
-        lastTarget=targetRow.dataset.ev;
-      } else {lastTarget=null;}
+      if(tRow&&tRow.dataset.ev!==tSrc){var tc=tRow.querySelector('.ev');if(tc)tc.classList.add('dragover');lastTgt=tRow.dataset.ev}else{lastTgt=null}
       e.preventDefault();
     },{passive:false});
-
-    handle.addEventListener('touchend',function(e){
-      if(ghostEl){ghostEl.remove();ghostEl=null;}
+    handle.addEventListener('touchend',function(){
+      if(ghost){ghost.remove();ghost=null}
       tl.querySelectorAll('.ev').forEach(function(c){c.classList.remove('dragging','dragover')});
-      if(touchSrcId&&lastTarget&&lastTarget!==touchSrcId){
-        var allRows=[].slice.call(tl.querySelectorAll('[data-ev]'));
-        var ids=allRows.map(function(r){return r.dataset.ev});
-        var si=ids.indexOf(touchSrcId),di=ids.indexOf(lastTarget);
-        if(si!==-1&&di!==-1){ids.splice(si,1);ids.splice(di,0,touchSrcId);reorderEvs(ET,EDay,ids);rTL();}
+      if(tSrc&&lastTgt&&lastTgt!==tSrc){
+        var ids=[].slice.call(tl.querySelectorAll('[data-ev]')).map(function(r){return r.dataset.ev});
+        var si=ids.indexOf(tSrc),di=ids.indexOf(lastTgt);
+        if(si!==-1&&di!==-1){ids.splice(si,1);ids.splice(di,0,tSrc);reorderEvs(ET,EDay,ids);rTL();}
       }
-      touchSrcId=null;lastTarget=null;
+      tSrc=null;lastTgt=null;
     });
   });
 }
 
 // ════ EVENT MODAL ══════════════════════════════════════════════
-var EDAT={},EID=null;
+var EDAT={},EID=null,LedCur='JPY';
 function openEvModal(eid,defaultStart){
   EID=eid;
   EDAT=eid?Object.assign({},getEvs(ET).find(function(e){return e.id===eid}))
-    :{title:'',startTime:defaultStart||'',endTime:'',description:'',images:[],links:[],
-      address:'',googleMapsUrl:'',lat:null,lng:null,
-      category:'attraction',status:'planned',tags:[],
-      mood:'',journal:'',ledger:[]};
+    :{title:'',startTime:defaultStart||'',endTime:'',description:'',images:[],links:[],address:'',googleMapsUrl:'',lat:null,lng:null,category:'attraction',status:'planned',tags:[],mood:'',journal:'',ledger:[]};
+  // 優化：記帳幣別預設為旅遊地幣
+  var curs=getTripCurrencies(ET);
+  LedCur=EDAT.ledgerCurrency||curs[0]||'JPY';
   document.getElementById('ev-mtit').textContent=eid?'編輯行程':'新增行程';
   document.getElementById('ev-ttl').value=EDAT.title||'';
-  // 優化：使用完整類別列表
-  document.getElementById('ev-cat').innerHTML=EV_CATS.map(function(c){
-    return'<option value="'+c.v+'"'+(EDAT.category===c.v?' selected':'')+'>'+c.l+'</option>';
-  }).join('');
+  document.getElementById('ev-cat').innerHTML=EV_CATS.map(function(c){return'<option value="'+c.v+'"'+(EDAT.category===c.v?' selected':'')+'>'+c.l+'</option>'}).join('');
   document.getElementById('ev-st').value=EDAT.startTime||'';
   document.getElementById('ev-et').value=EDAT.endTime||'';
   document.getElementById('ev-desc').value=EDAT.description||'';
   document.getElementById('ev-addr').value=EDAT.address||'';
   document.getElementById('ev-journal').value=EDAT.journal||'';
-  rEvPhotos();rEvLinks();rEvMoods();rEvLedger();rGmap();
-  // 重置 tabs
+  rLedCurToggle();rEvPhotos();rEvLinks();rEvMoods();rEvLedger();rGmap();
   document.querySelectorAll('.ev-tab').forEach(function(el){
     el.onclick=function(){
       document.querySelectorAll('.ev-tab').forEach(function(t){t.classList.remove('on')});
       document.querySelectorAll('.ev-panel').forEach(function(p){p.classList.add('hide')});
-      el.classList.add('on');
-      document.getElementById('ep-'+el.dataset.p).classList.remove('hide');
+      el.classList.add('on');document.getElementById('ep-'+el.dataset.p).classList.remove('hide');
     };
   });
   document.querySelectorAll('.ev-tab').forEach(function(t){t.classList.remove('on')});
@@ -1264,10 +1244,8 @@ function openEvModal(eid,defaultStart){
   document.querySelectorAll('.ev-panel').forEach(function(p){p.classList.add('hide')});
   document.getElementById('ep-info').classList.remove('hide');
   document.getElementById('ev-mapbtn').onclick=function(){
-    var a=document.getElementById('ev-addr').value.trim();
-    if(!a){toast('請先輸入地址');return}
-    EDAT.address=a;EDAT.googleMapsUrl='https://maps.google.com/?q='+encodeURIComponent(a);
-    rGmap();window.open(EDAT.googleMapsUrl,'_blank');
+    var a=document.getElementById('ev-addr').value.trim();if(!a){toast('請先輸入地址');return}
+    EDAT.address=a;EDAT.googleMapsUrl='https://maps.google.com/?q='+encodeURIComponent(a);rGmap();window.open(EDAT.googleMapsUrl,'_blank');
   };
   document.getElementById('ev-ladd').onclick=addEvLink;
   document.getElementById('ev-led-add').onclick=addLedger;
@@ -1275,34 +1253,31 @@ function openEvModal(eid,defaultStart){
   document.getElementById('m-ev').onclick=null;
   openM('m-ev');
 }
+// 優化：記帳幣別切換（旅遊地幣 + TWD）
+function rLedCurToggle(){
+  var toggle=document.getElementById('led-cur-toggle');
+  var curs=getTripCurrencies(ET);
+  toggle.innerHTML=curs.map(function(c){return'<div class="cur-t-btn'+(c===LedCur?' on':'')+'" data-c="'+c+'">'+c+'</div>'}).join('');
+  toggle.querySelectorAll('.cur-t-btn').forEach(function(el){
+    el.onclick=function(){LedCur=el.dataset.c;rLedCurToggle();rEvLedger()};
+  });
+}
 var _photoPending=0;
 function rEvPhotos(){
   var strip=document.getElementById('ev-photos');if(!strip)return;
-  strip.innerHTML=(EDAT.images||[]).map(function(img,i){
-    return'<div class="photo-th" style="background-image:url(\''+img+'\')">'
-      +'<div class="photo-del" onclick="EDAT.images.splice('+i+',1);rEvPhotos()">×</div></div>';
-  }).join('')+'<div class="photo-add" id="ev-photo-add">📷<span>新增照片</span></div>';
+  strip.innerHTML=(EDAT.images||[]).map(function(img,i){return'<div class="photo-th" style="background-image:url(\''+img+'\')" ><div class="photo-del" onclick="EDAT.images.splice('+i+',1);rEvPhotos()">×</div></div>'}).join('')
+    +'<div class="photo-add" id="ev-photo-add">📷<span>新增照片</span></div>';
   document.getElementById('ev-photo-add').onclick=function(){
     var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.multiple=true;
-    inp.onchange=function(){
-      var files=Array.from(inp.files);_photoPending+=files.length;
-      Promise.all(files.map(readFile)).then(function(urls){
-        EDAT.images=(EDAT.images||[]).concat(urls);_photoPending-=files.length;rEvPhotos();
-      });
-    };inp.click();
+    inp.onchange=function(){var files=Array.from(inp.files);_photoPending+=files.length;Promise.all(files.map(readFile)).then(function(urls){EDAT.images=(EDAT.images||[]).concat(urls);_photoPending-=files.length;rEvPhotos()})};inp.click();
   };
 }
 function rEvLinks(){
   var wrap=document.getElementById('ev-links');
-  wrap.innerHTML=(EDAT.links||[]).map(function(l,i){
-    return'<div class="link-item">'
-      +'<a class="link-url" href="'+l.url+'" target="_blank">🔗 '+(l.label||l.url)+'</a>'
-      +'<span class="link-del" onclick="EDAT.links.splice('+i+',1);rEvLinks()">×</span></div>';
-  }).join('');
+  wrap.innerHTML=(EDAT.links||[]).map(function(l,i){return'<div class="link-item"><a class="link-url" href="'+l.url+'" target="_blank">🔗 '+(l.label||l.url)+'</a><span class="link-del" onclick="EDAT.links.splice('+i+',1);rEvLinks()">×</span></div>'}).join('');
 }
 function addEvLink(){
-  var u=document.getElementById('ev-lurl').value.trim();
-  var lb=document.getElementById('ev-llbl').value.trim();
+  var u=document.getElementById('ev-lurl').value.trim(),lb=document.getElementById('ev-llbl').value.trim();
   if(!u){toast('請輸入連結網址');return}
   EDAT.links=EDAT.links||[];EDAT.links.push({url:u,label:lb||u});
   document.getElementById('ev-lurl').value='';document.getElementById('ev-llbl').value='';rEvLinks();
@@ -1316,28 +1291,25 @@ function rEvMoods(){
 function rEvLedger(){
   var wrap=document.getElementById('ev-ledger');
   wrap.innerHTML=(EDAT.ledger||[]).map(function(l,i){
-    return'<div class="ledger-item"><span class="ledger-desc">'+l.desc+'</span><span class="ledger-amt">'+l.amt+'</span><span class="ledger-del" onclick="EDAT.ledger.splice('+i+',1);rEvLedger()">×</span></div>';
+    return'<div class="ledger-item"><span class="ledger-desc">'+l.desc+'</span>'
+      +'<span class="ledger-amt">'+l.cur+' '+l.amt+'</span>'
+      +'<span class="ledger-del" onclick="EDAT.ledger.splice('+i+',1);rEvLedger()">×</span></div>';
   }).join('');
 }
 function addLedger(){
   var desc=document.getElementById('ev-led-desc').value.trim();
   var amt=document.getElementById('ev-led-amt').value.trim();
   if(!desc||!amt){toast('請輸入項目和金額');return}
-  EDAT.ledger=EDAT.ledger||[];EDAT.ledger.push({desc:desc,amt:amt});
+  EDAT.ledger=EDAT.ledger||[];EDAT.ledger.push({desc:desc,amt:amt,cur:LedCur});
   document.getElementById('ev-led-desc').value='';document.getElementById('ev-led-amt').value='';rEvLedger();
 }
 function rGmap(){
-  var wrap=document.getElementById('ev-gmap');
-  var lnkRow=document.getElementById('ev-maplink-row');
-  var addr=EDAT.address||'';
+  var wrap=document.getElementById('ev-gmap'),lnkRow=document.getElementById('ev-maplink-row'),addr=EDAT.address||'';
   if(addr.trim()){
     var q=encodeURIComponent(addr.trim());
-    var mapsUrl='https://maps.google.com/?q='+q;
-    var embedUrl='https://maps.google.com/maps?q='+q+'&output=embed&z=15&hl=zh-TW';
-    wrap.innerHTML='<iframe src="'+embedUrl+'" width="100%" height="140" style="border:0;border-radius:12px;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+    wrap.innerHTML='<iframe src="https://maps.google.com/maps?q='+q+'&output=embed&z=15&hl=zh-TW" width="100%" height="140" style="border:0;border-radius:12px;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
     if(lnkRow)lnkRow.style.display='block';
-    var lnk=document.getElementById('ev-maplink');
-    if(lnk)lnk.href=mapsUrl;
+    var lnk=document.getElementById('ev-maplink');if(lnk)lnk.href='https://maps.google.com/?q='+q;
   } else {
     wrap.innerHTML='<div class="gmap-placeholder">📍<span style="font-size:12px;color:var(--ink3)">在「詳情」頁輸入地址後點擊「地圖↗」</span></div>';
     if(lnkRow)lnkRow.style.display='none';
@@ -1347,11 +1319,9 @@ function saveEv(){
   if(_photoPending>0){toast('照片上傳中，請稍候…');return}
   EDAT.title=document.getElementById('ev-ttl').value.trim();
   EDAT.category=document.getElementById('ev-cat').value;
-  EDAT.startTime=document.getElementById('ev-st').value;
-  EDAT.endTime=document.getElementById('ev-et').value;
-  EDAT.description=document.getElementById('ev-desc').value.trim();
-  EDAT.address=document.getElementById('ev-addr').value.trim();
-  EDAT.journal=document.getElementById('ev-journal').value.trim();
+  EDAT.startTime=document.getElementById('ev-st').value;EDAT.endTime=document.getElementById('ev-et').value;
+  EDAT.description=document.getElementById('ev-desc').value.trim();EDAT.address=document.getElementById('ev-addr').value.trim();
+  EDAT.journal=document.getElementById('ev-journal').value.trim();EDAT.ledgerCurrency=LedCur;
   if(EDAT.address)EDAT.googleMapsUrl='https://maps.google.com/?q='+encodeURIComponent(EDAT.address);
   if(!EDAT.title){toast('請輸入行程名稱');return}
   if(EID)updateEv(ET,EID,EDAT);else createEv(ET,EDay,EDAT);
@@ -1363,14 +1333,13 @@ var TFrom=null,TMode=null,TData={};
 function openTrModal(fromId){
   TFrom=fromId;
   var ex=getTr(ET,fromId);
-  var trip=getTrip(ET);
-  var defCur=getCurrency(trip?trip.destinations:[]);
+  // 優化：交通幣別預設旅遊地
+  var curs=getTripCurrencies(ET);var defCur=curs[0]||'JPY';
   TData=ex?Object.assign({},ex):{fromId:fromId,mode:null,durationMin:'',cost:'',currency:defCur,ticketUrl:'',note:''};
   TMode=TData.mode||null;
   var evs=getEvs(ET),fe=evs.find(function(e){return e.id===fromId});
   var dl=getEvsByDay(ET,fe?fe.dayId:EDay);
-  var fi=dl.findIndex(function(e){return e.id===fromId});
-  var te=dl[fi+1];
+  var fi=dl.findIndex(function(e){return e.id===fromId});var te=dl[fi+1];
   document.getElementById('tr-route').textContent=(fe?fe.title:'出發')+' → '+(te?te.title:'目的地');
   rTMGrid();
   document.getElementById('tr-del').onclick=function(){deleteTr(ET,fromId);closeM('m-tr');toast('交通資訊已刪除');rTL()};
@@ -1386,36 +1355,37 @@ function rTMGrid(){
       +'<div class="tm-ico" style="background:'+(on?MBGS[m.cls]:'var(--cream2)')+'"><span style="color:'+(on?MCLRS[m.cls]:'var(--ink3)')+'">'+MICO[m.id]+'</span></div>'
       +'<span class="tm-lbl" style="color:'+(on?MCLRS[m.cls]:'var(--ink2)')+'">'+m.l+'</span></button>';
   }).join('');
-  grid.querySelectorAll('.tm-btn').forEach(function(el){
-    el.onclick=function(){TMode=el.dataset.m;rTMGrid();rTDet()};
-  });
+  grid.querySelectorAll('.tm-btn').forEach(function(el){el.onclick=function(){TMode=el.dataset.m;rTMGrid();rTDet()}});
   rTDet();
 }
 function rTDet(){
-  var box=document.getElementById('tr-det');
-  if(!TMode){box.innerHTML='';return}
+  var box=document.getElementById('tr-det');if(!TMode){box.innerHTML='';return}
   var m=MODES.find(function(x){return x.id===TMode});
-  var cur=TData.currency||'JPY';
+  // 優化：幣別只顯示 旅遊地幣 + TWD 切換
+  var curs=getTripCurrencies(ET);var cur=TData.currency||curs[0]||'JPY';
+  // 確保 cur 在清單內
+  if(!curs.includes(cur))cur=curs[0]||'JPY';
   box.innerHTML='<div class="tr-det '+TMode+'">'
     +'<div class="tr-dtit" style="color:'+MCLRS[TMode]+'">'+m.l+' 詳細資訊</div>'
     +'<div class="tr-fields">'
     +'<div class="tr-f"><div class="tr-fl">時間（分鐘）</div><input class="tr-fi" id="tr-dur" type="number" min="1" placeholder="例：45" value="'+(TData.durationMin||'')+'"></div>'
     +'<div class="tr-f"><div class="tr-fl">費用</div><input class="tr-fi" id="tr-cost" type="number" min="0" placeholder="例：230" value="'+(TData.cost||'')+'"></div>'
     +'</div>'
-    +'<div class="tr-f" style="margin-top:8px"><div class="tr-fl">幣別</div>'
-    +'<div class="currency-row">'+CURRENCIES.map(function(c){return'<div class="cur-opt'+(c===cur?' on':'')+'" data-cur="'+c+'">'+c+'</div>'}).join('')+'</div></div>'
+    +'<div class="tr-f" style="margin-top:10px"><div class="tr-fl" style="margin-bottom:6px">幣別</div>'
+    // 優化：精簡幣別切換（旅遊地 + TWD）
+    +'<div class="cur-toggle" id="tr-cur-toggle">'
+    +curs.map(function(c){return'<div class="cur-t-btn'+(c===cur?' on':'')+'" data-c="'+c+'">'+c+'</div>'}).join('')
+    +'</div></div>'
     +'<div class="tr-f" style="margin-top:8px"><div class="tr-fl">票務連結</div><input class="tr-fi" id="tr-ticket" type="url" placeholder="https://…" value="'+(TData.ticketUrl||'')+'"></div>'
     +'<div class="tr-f" style="margin-top:8px"><div class="tr-fl">備忘</div><input class="tr-fi" id="tr-note" type="text" placeholder="例：乘 JR 山手線" value="'+(TData.note||'')+'"></div>'
-    +'<div class="tr-ml" id="tr-maps">🗺 Google Maps 查看路線</div>'
-    +'</div>';
-  box.querySelectorAll('.cur-opt').forEach(function(el){
-    el.onclick=function(){TData.currency=el.dataset.cur;box.querySelectorAll('.cur-opt').forEach(function(x){x.classList.toggle('on',x.dataset.cur===TData.currency)})};
+    +'<div class="tr-ml" id="tr-maps">🗺 Google Maps 查看路線</div></div>';
+  box.querySelectorAll('.cur-t-btn').forEach(function(el){
+    el.onclick=function(){TData.currency=el.dataset.c;box.querySelectorAll('.cur-t-btn').forEach(function(x){x.classList.toggle('on',x.dataset.c===TData.currency)})};
   });
   document.getElementById('tr-maps').onclick=function(){
     var evs=getEvs(ET),fe=evs.find(function(e){return e.id===TFrom});
     var dl=getEvsByDay(ET,fe?fe.dayId:EDay);
-    var fi=dl.findIndex(function(e){return e.id===TFrom});
-    var te=dl[fi+1];
+    var fi=dl.findIndex(function(e){return e.id===TFrom});var te=dl[fi+1];
     if(!fe||!te||!fe.address||!te.address){toast('請先設定出發與目的地地址');return}
     var gm={walk:'w',rail:'r',bus:'r',ferry:'r',taxi:'d',air:''};
     window.open('https://maps.google.com/maps?saddr='+encodeURIComponent(fe.address)+'&daddr='+encodeURIComponent(te.address)+(gm[TMode]?'&dirflg='+gm[TMode]:''),'_blank');
@@ -1423,70 +1393,38 @@ function rTDet(){
 }
 function saveTr(){
   if(!TMode){toast('請選擇交通方式');return}
-  var curSel=document.querySelector('.currency-row .cur-opt.on');
-  if(curSel)TData.currency=curSel.dataset.cur;
+  var curSel=document.querySelector('#tr-cur-toggle .cur-t-btn.on');
+  if(curSel)TData.currency=curSel.dataset.c;
   TData.currency=TData.currency||'JPY';
   var evs=getEvs(ET),fe=evs.find(function(e){return e.id===TFrom});
   var dl=fe?getEvsByDay(ET,fe.dayId):[];
-  var fi=dl.findIndex(function(e){return e.id===TFrom});
-  var toId=dl[fi+1]?dl[fi+1].id:null;
-  upsertTr(ET,{
-    fromId:TFrom,toId:toId,mode:TMode,
-    durationMin:document.getElementById('tr-dur')?+document.getElementById('tr-dur').value||null:null,
-    cost:document.getElementById('tr-cost')?+document.getElementById('tr-cost').value||null:null,
-    currency:TData.currency,
-    ticketUrl:document.getElementById('tr-ticket')?document.getElementById('tr-ticket').value:'',
-    note:document.getElementById('tr-note')?document.getElementById('tr-note').value:'',
-  });
+  var fi=dl.findIndex(function(e){return e.id===TFrom});var toId=dl[fi+1]?dl[fi+1].id:null;
+  upsertTr(ET,{fromId:TFrom,toId:toId,mode:TMode,durationMin:+document.getElementById('tr-dur').value||null,cost:+document.getElementById('tr-cost').value||null,currency:TData.currency,ticketUrl:document.getElementById('tr-ticket').value,note:document.getElementById('tr-note').value});
   closeM('m-tr');toast('交通設定已儲存 ✓');rTL();
 }
 
 // ════ PROFILE ══════════════════════════════════════════════════
 function iProfile(){
   document.getElementById('p-export-all').onclick=function(){
-    dlBlob(JSON.stringify(exportAll(),null,2),'journi-all-'+Date.now()+'.json','application/json');
-    toast('所有計畫已匯出 ✓');
+    dlBlob(JSON.stringify(exportAll(),null,2),'journi-all-'+toDateStr(new Date())+'.json','application/json');toast('所有計畫已匯出 ✓');
   };
-  document.getElementById('p-import').onclick=function(){
-    document.getElementById('imp-inp').click();
-  };
+  document.getElementById('p-import').onclick=function(){document.getElementById('imp-inp').click()};
   document.getElementById('imp-inp').onchange=function(){
     var f=this.files[0];if(!f)return;
-    var fr=new FileReader();
-    fr.onload=function(ev){
-      try{
-        var d=JSON.parse(ev.target.result);
-        if(d.trips){d.trips.forEach(function(t){importTrip(t)});toast('匯入 '+d.trips.length+' 個計畫 ✓');}
-        else{importTrip(d);toast('計畫匯入成功 ✓');}
-        iTrips();
-      }catch(e){toast('匯入失敗，請確認檔案格式');}
-    };fr.readAsText(f);
-    this.value='';
+    var fr=new FileReader();fr.onload=function(ev){
+      try{var d=JSON.parse(ev.target.result);if(d.trips){d.trips.forEach(function(t){importTrip(t)});toast('匯入 '+d.trips.length+' 個計畫 ✓')}else{importTrip(d);toast('計畫匯入成功 ✓')}iTrips()}catch(e){toast('匯入失敗，請確認檔案格式')}
+    };fr.readAsText(f);this.value='';
   };
-  ['p-pref-c','p-pref-s','p-pref-b'].forEach(function(id){
-    document.getElementById(id).onclick=function(){toast('此功能即將推出')};
-  });
+  ['p-pref-c','p-pref-s'].forEach(function(id){document.getElementById(id).onclick=function(){toast('此功能即將推出')}});
 }
 
 // ════ BOOT ═════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded',function(){
-  // Nav
   document.querySelectorAll('.ni').forEach(function(el){
-    el.addEventListener('click',function(){
-      var s=el.dataset.s;
-      if(s==='add'){iAP(null);return}
-      go(s);
-    });
+    el.addEventListener('click',function(){var s=el.dataset.s;if(s==='add'){iAP(null);return}go(s)});
   });
-  // Confirm dialog
-  document.getElementById('confirm-cancel').onclick=function(){
-    document.getElementById('confirm-overlay').classList.remove('show');_confirmCb=null;
-  };
-  document.getElementById('confirm-ok').onclick=function(){
-    document.getElementById('confirm-overlay').classList.remove('show');
-    if(_confirmCb)_confirmCb();_confirmCb=null;
-  };
-  // PWA
+  document.getElementById('confirm-cancel').onclick=function(){document.getElementById('confirm-overlay').classList.remove('show');_confirmCb=null};
+  document.getElementById('confirm-ok').onclick=function(){document.getElementById('confirm-overlay').classList.remove('show');if(_confirmCb)_confirmCb();_confirmCb=null};
   if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
   go('rec',{},false);
 });
